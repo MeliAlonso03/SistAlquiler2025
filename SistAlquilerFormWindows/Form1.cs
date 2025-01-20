@@ -64,7 +64,7 @@ namespace SistAlquilerFormWindows
                         // Obtén el objeto seleccionado del ComboBox
                         if (cmbCar.SelectedItem is Car selectedCar)
                         {
-                            product = factories[productType].CreateProduct(name, _dateTimeStart, selectedCar);
+                            product = factories[productType].CreateProduct(name, _dateTimeStart, _dateTimeFinish, selectedCar);
                         }
                         else
                         {
@@ -77,7 +77,7 @@ namespace SistAlquilerFormWindows
                         // Obtén el objeto seleccionado del ComboBox
                         if (cmbWashing.SelectedItem is WashingMachine selectedMachine)
                         {
-                            product = factories[productType].CreateProduct(name, _dateTimeStart, selectedMachine);
+                            product = factories[productType].CreateProduct(name, _dateTimeStart, _dateTimeFinish, selectedMachine);
                         }
                         else
                         {

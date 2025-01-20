@@ -11,7 +11,7 @@ namespace SistAlquilerFormWindows.Models
     {
         public string LicensePlate { get; private set; }
         public string Model { get; private set; }
-        public bool Available { get; private set; } = true;
+        public bool Available { get; set; } = true;
 
         public Car(string model, string licensePlate)
         {

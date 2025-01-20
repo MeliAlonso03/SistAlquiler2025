@@ -9,6 +9,6 @@ namespace SistAlquilerFormWindows.Factory
 {
     internal interface IProductFactory
     {
-        IRentableProduct CreateProduct<T>(string name, DateTime dailyRate, T additionalObject);
+        IRentableProduct CreateProduct<T>(string name, DateTime startDateTime, DateTime endDateTime, T additionalObject);
     }
 }

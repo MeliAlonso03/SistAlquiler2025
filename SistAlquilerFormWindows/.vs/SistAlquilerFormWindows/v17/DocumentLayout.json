@@ -1,0 +1,113 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\alons\\OneDrive\\Escritorio\\EDIIIRefactorizado\\SistAlquiler2025\\SistAlquilerFormWindows\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F5A0D4AB-C62F-456E-A678-BC3137CB223C}|SistAlquilerFormWindows.csproj|c:\\users\\alons\\onedrive\\escritorio\\ediiirefactorizado\\sistalquiler2025\\sistalquilerformwindows\\factory\\washingmachinefactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F5A0D4AB-C62F-456E-A678-BC3137CB223C}|SistAlquilerFormWindows.csproj|solutionrelative:factory\\washingmachinefactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5A0D4AB-C62F-456E-A678-BC3137CB223C}|SistAlquilerFormWindows.csproj|c:\\users\\alons\\onedrive\\escritorio\\ediiirefactorizado\\sistalquiler2025\\sistalquilerformwindows\\models\\rentwashingmachine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F5A0D4AB-C62F-456E-A678-BC3137CB223C}|SistAlquilerFormWindows.csproj|solutionrelative:models\\rentwashingmachine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5A0D4AB-C62F-456E-A678-BC3137CB223C}|SistAlquilerFormWindows.csproj|c:\\users\\alons\\onedrive\\escritorio\\ediiirefactorizado\\sistalquiler2025\\sistalquilerformwindows\\models\\interfaces\\irentableproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F5A0D4AB-C62F-456E-A678-BC3137CB223C}|SistAlquilerFormWindows.csproj|solutionrelative:models\\interfaces\\irentableproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5A0D4AB-C62F-456E-A678-BC3137CB223C}|SistAlquilerFormWindows.csproj|c:\\users\\alons\\onedrive\\escritorio\\ediiirefactorizado\\sistalquiler2025\\sistalquilerformwindows\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F5A0D4AB-C62F-456E-A678-BC3137CB223C}|SistAlquilerFormWindows.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5A0D4AB-C62F-456E-A678-BC3137CB223C}|SistAlquilerFormWindows.csproj|c:\\users\\alons\\onedrive\\escritorio\\ediiirefactorizado\\sistalquiler2025\\sistalquilerformwindows\\models\\car.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F5A0D4AB-C62F-456E-A678-BC3137CB223C}|SistAlquilerFormWindows.csproj|solutionrelative:models\\car.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "RentWashingMachine.cs",
+              "DocumentMoniker": "C:\\Users\\alons\\OneDrive\\Escritorio\\EDIIIRefactorizado\\SistAlquiler2025\\SistAlquilerFormWindows\\Models\\RentWashingMachine.cs",
+              "RelativeDocumentMoniker": "Models\\RentWashingMachine.cs",
+              "ToolTip": "C:\\Users\\alons\\OneDrive\\Escritorio\\EDIIIRefactorizado\\SistAlquiler2025\\SistAlquilerFormWindows\\Models\\RentWashingMachine.cs",
+              "RelativeToolTip": "Models\\RentWashingMachine.cs",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAuwBgAAAAmAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-20T00:32:09.065Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "WashingMachineFactory.cs",
+              "DocumentMoniker": "C:\\Users\\alons\\OneDrive\\Escritorio\\EDIIIRefactorizado\\SistAlquiler2025\\SistAlquilerFormWindows\\Factory\\WashingMachineFactory.cs",
+              "RelativeDocumentMoniker": "Factory\\WashingMachineFactory.cs",
+              "ToolTip": "C:\\Users\\alons\\OneDrive\\Escritorio\\EDIIIRefactorizado\\SistAlquiler2025\\SistAlquilerFormWindows\\Factory\\WashingMachineFactory.cs",
+              "RelativeToolTip": "Factory\\WashingMachineFactory.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-20T00:31:02.945Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\alons\\OneDrive\\Escritorio\\EDIIIRefactorizado\\SistAlquiler2025\\SistAlquilerFormWindows\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "C:\\Users\\alons\\OneDrive\\Escritorio\\EDIIIRefactorizado\\SistAlquiler2025\\SistAlquilerFormWindows\\Form1.cs",
+              "RelativeToolTip": "Form1.cs",
+              "ViewState": "AQIAAD4AAAAAAAAAAAAiwF8AAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-20T00:30:30.783Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "IRentableProduct.cs",
+              "DocumentMoniker": "C:\\Users\\alons\\OneDrive\\Escritorio\\EDIIIRefactorizado\\SistAlquiler2025\\SistAlquilerFormWindows\\Models\\Interfaces\\IRentableProduct.cs",
+              "RelativeDocumentMoniker": "Models\\Interfaces\\IRentableProduct.cs",
+              "ToolTip": "C:\\Users\\alons\\OneDrive\\Escritorio\\EDIIIRefactorizado\\SistAlquiler2025\\SistAlquilerFormWindows\\Models\\Interfaces\\IRentableProduct.cs",
+              "RelativeToolTip": "Models\\Interfaces\\IRentableProduct.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAgAAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-20T00:22:51.174Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Car.cs",
+              "DocumentMoniker": "C:\\Users\\alons\\OneDrive\\Escritorio\\EDIIIRefactorizado\\SistAlquiler2025\\SistAlquilerFormWindows\\Models\\Car.cs",
+              "RelativeDocumentMoniker": "Models\\Car.cs",
+              "ToolTip": "C:\\Users\\alons\\OneDrive\\Escritorio\\EDIIIRefactorizado\\SistAlquiler2025\\SistAlquilerFormWindows\\Models\\Car.cs",
+              "RelativeToolTip": "Models\\Car.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAA0AAAArAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-20T00:22:42.289Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

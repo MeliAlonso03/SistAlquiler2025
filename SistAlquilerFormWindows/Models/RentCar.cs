@@ -17,17 +17,17 @@ namespace SistAlquilerFormWindows.Models
 
         public DateTime EndDateTime { get; private set; }
 
-        public RentCar(string name, DateTime dateTimeStart, Car car)
+        public RentCar(string name, DateTime dateTimeStart, DateTime endDateTime, Car car)
         {
             Name = name;
             DateTimeStart = dateTimeStart;
             this.car = car;
+            EndDateTime = endDateTime;
         }
         public void Rent()
         {
-            if (!IsAvailable)
+            if (!car.Available)
                 throw new InvalidOperationException("Car is not available");
-            IsAvailable = false;
         }
 
         public void Return()

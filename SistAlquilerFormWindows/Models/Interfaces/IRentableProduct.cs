@@ -11,7 +11,6 @@ namespace SistAlquilerFormWindows.Models.Interfaces
         string Name { get; }
         DateTime DateTimeStart { get; }
         DateTime EndDateTime { get; }
-        bool IsAvailable { get; }
         void Rent();
         void Return();
         string GetDetails();

@@ -18,10 +18,11 @@ namespace SistAlquilerFormWindows.Models
 
         public DateTime EndDateTime { get; private set; }
 
-        public RentWashingMachine(string name, DateTime dateTimeStart, WashingMachine washing)
+        public RentWashingMachine(string name, DateTime dateTimeStart, DateTime endDateTime, WashingMachine washing)
         {
             Name = name;
             DateTimeStart = dateTimeStart;
+            EndDateTime = endDateTime;
             Washing = washing;
         }
         public void Rent()

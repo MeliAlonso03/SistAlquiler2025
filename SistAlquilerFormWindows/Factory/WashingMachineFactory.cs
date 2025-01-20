@@ -10,11 +10,12 @@ namespace SistAlquilerFormWindows.Factory
 {
     internal class WashingMachineFactory : IProductFactory
     {
-        public IRentableProduct CreateProduct<T>(string name, DateTime dailyRate, T additionalObject)
+
+        public IRentableProduct CreateProduct<T>(string name, DateTime startDateTime, DateTime endDateTime, T additionalObject)
         {
             if (additionalObject is WashingMachine washing)
             {
-                return new RentWashingMachine(name, dailyRate, washing);
+                return new RentWashingMachine(name, startDateTime, endDateTime, washing);
             }
             throw new ArgumentException("El objeto adicional no es un Wahing Machine válida.");
         }

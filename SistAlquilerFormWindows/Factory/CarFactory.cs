@@ -11,11 +11,11 @@ namespace SistAlquilerFormWindows.Factory
     internal class CarFactory : IProductFactory
     {
 
-        public IRentableProduct CreateProduct<T>(string name, DateTime dailyRate, T additionalObject)
+        public IRentableProduct CreateProduct<T>(string name, DateTime startDateTime, DateTime endDateTime, T additionalObject)
         {
             if (additionalObject is Car car)
             {
-                return new RentCar(name, dailyRate, car);
+                return new RentCar(name, startDateTime, endDateTime, car);
             }
             throw new ArgumentException("El objeto adicional no es un Car válida.");
         }
