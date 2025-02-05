@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtDailyRate = new System.Windows.Forms.TextBox();
+            this.txtPriceXHora = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblDailyRate = new System.Windows.Forms.Label();
@@ -45,12 +45,12 @@
             this.dateTimeFinish = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
-            // txtDailyRate
+            // txtPriceXHora
             // 
-            this.txtDailyRate.Location = new System.Drawing.Point(138, 372);
-            this.txtDailyRate.Name = "txtDailyRate";
-            this.txtDailyRate.Size = new System.Drawing.Size(100, 22);
-            this.txtDailyRate.TabIndex = 9;
+            this.txtPriceXHora.Location = new System.Drawing.Point(156, 258);
+            this.txtPriceXHora.Name = "txtPriceXHora";
+            this.txtPriceXHora.Size = new System.Drawing.Size(100, 22);
+            this.txtPriceXHora.TabIndex = 9;
             // 
             // lblName
             // 
@@ -71,15 +71,15 @@
             // lblDailyRate
             // 
             this.lblDailyRate.AutoSize = true;
-            this.lblDailyRate.Location = new System.Drawing.Point(44, 378);
+            this.lblDailyRate.Location = new System.Drawing.Point(37, 264);
             this.lblDailyRate.Name = "lblDailyRate";
-            this.lblDailyRate.Size = new System.Drawing.Size(70, 16);
+            this.lblDailyRate.Size = new System.Drawing.Size(82, 16);
             this.lblDailyRate.TabIndex = 10;
-            this.lblDailyRate.Text = "Daily Rate";
+            this.lblDailyRate.Text = "Price X Hora";
             // 
             // btnAddProduct
             // 
-            this.btnAddProduct.Location = new System.Drawing.Point(138, 251);
+            this.btnAddProduct.Location = new System.Drawing.Point(156, 311);
             this.btnAddProduct.Name = "btnAddProduct";
             this.btnAddProduct.Size = new System.Drawing.Size(90, 34);
             this.btnAddProduct.TabIndex = 12;
@@ -195,7 +195,7 @@
             this.Controls.Add(this.btnAddProduct);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.lblDailyRate);
-            this.Controls.Add(this.txtDailyRate);
+            this.Controls.Add(this.txtPriceXHora);
             this.Controls.Add(this.lblName);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -205,7 +205,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.TextBox txtDailyRate;
+        private System.Windows.Forms.TextBox txtPriceXHora;
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Label lblDailyRate;

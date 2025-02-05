@@ -1,4 +1,5 @@
 ﻿using SistAlquilerFormWindows.Models.Interfaces;
+using SistAlquilerFormWindows.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,13 +18,18 @@ namespace SistAlquilerFormWindows.Models
         public DateTime DateTimeStart { get; private set; }
 
         public DateTime EndDateTime { get; private set; }
+        public decimal PrecioxHora { get; set; }
 
-        public RentWashingMachine(string name, DateTime dateTimeStart, DateTime endDateTime, WashingMachine washing)
+        public IPriceStrategy PriceStrategy { get; set; }
+
+        public RentWashingMachine(string name, DateTime dateTimeStart, DateTime endDateTime, decimal precioXHora, WashingMachine washing, IPriceStrategy priceStrategy)
         {
             Name = name;
             DateTimeStart = dateTimeStart;
             EndDateTime = endDateTime;
+            PrecioxHora = precioXHora;
             Washing = washing;
+            PriceStrategy = priceStrategy;
         }
         public void Rent()
         {
@@ -41,5 +47,12 @@ namespace SistAlquilerFormWindows.Models
         {
             return $"Usuario: {Name}, Brand: {Washing.Brand}, Model: {Washing.Model}, ID: {Washing.UniqueId}, Daily Rate: {DateTimeStart}";
         }
+
+        public decimal CalcularPrecioAlquiler()
+        {
+            int horas = AlquilerDuracionCalculator.CalcularHorasAlquiler(DateTimeStart, EndDateTime);
+            return PriceStrategy.CalcularPrecio(horas);
+        }
+
     }
 }

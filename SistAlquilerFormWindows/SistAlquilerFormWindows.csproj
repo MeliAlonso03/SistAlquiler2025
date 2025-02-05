@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\CarController.cs" />
+    <Compile Include="Controllers\ManagmentFactory.cs" />
     <Compile Include="Controllers\WashingMachineController.cs" />
     <Compile Include="DAO\CarDAO.cs" />
     <Compile Include="DAO\WashingMachineDAO.cs" />
@@ -60,12 +61,16 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Car.cs" />
+    <Compile Include="Models\Interfaces\IPriceStrategy.cs" />
     <Compile Include="Models\Interfaces\IRentableProduct.cs" />
+    <Compile Include="Models\PriceStrategy\PriceFixedStrategy.cs" />
+    <Compile Include="Models\PriceStrategy\PriceMonthStrategy.cs" />
     <Compile Include="Models\RentCar.cs" />
     <Compile Include="Models\RentWashingMachine.cs" />
     <Compile Include="Models\WashingMachine.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AlquilerDuracionCalculator.cs" />
     <Compile Include="Services\CarService.cs" />
     <Compile Include="Services\WashingMachineService.cs" />
     <Compile Include="Views\CreateCar.cs">

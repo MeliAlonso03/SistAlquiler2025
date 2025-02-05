@@ -2,6 +2,7 @@
 using SistAlquilerFormWindows.Factory;
 using SistAlquilerFormWindows.Models;
 using SistAlquilerFormWindows.Models.Interfaces;
+using SistAlquilerFormWindows.Models.PriceStrategy;
 using SistAlquilerFormWindows.Views;
 using System;
 using System.Collections.Generic;
@@ -52,6 +53,19 @@ namespace SistAlquilerFormWindows
             string name = txtName.Text;
             DateTime _dateTimeStart = dateTimeStart.Value;
             DateTime _dateTimeFinish = dateTimeFinish.Value;
+            decimal precioXHora = decimal.Parse(txtPriceXHora.Text);
+            TimeSpan duracion = _dateTimeFinish - _dateTimeStart;
+            int duracionHoras = (int)Math.Ceiling(duracion.TotalHours);
+            IPriceStrategy priceStrategy = new PriceFixedStrategy(precioXHora);
+            switch (duracionHoras)
+            {
+                case int horas when horas > 24:
+                    priceStrategy = new PriceMonthStrategy(precioXHora);
+                    break;
+                case int horas when horas < 24:
+                    priceStrategy = new PriceFixedStrategy(precioXHora);
+                    break;
+            }
 
 
             try
@@ -64,7 +78,7 @@ namespace SistAlquilerFormWindows
                         // Obtén el objeto seleccionado del ComboBox
                         if (cmbCar.SelectedItem is Car selectedCar)
                         {
-                            product = factories[productType].CreateProduct(name, _dateTimeStart, _dateTimeFinish, selectedCar);
+                            product = factories[productType].CreateProduct(name, _dateTimeStart, _dateTimeFinish, precioXHora, selectedCar, priceStrategy);
                         }
                         else
                         {
@@ -77,7 +91,7 @@ namespace SistAlquilerFormWindows
                         // Obtén el objeto seleccionado del ComboBox
                         if (cmbWashing.SelectedItem is WashingMachine selectedMachine)
                         {
-                            product = factories[productType].CreateProduct(name, _dateTimeStart, _dateTimeFinish, selectedMachine);
+                            product = factories[productType].CreateProduct(name, _dateTimeStart, _dateTimeFinish, precioXHora, selectedMachine, priceStrategy);
                         }
                         else
                         {
@@ -112,7 +126,7 @@ namespace SistAlquilerFormWindows
         private void ClearInputs()
         {
             txtName.Clear();
-            txtDailyRate.Clear();
+            txtPriceXHora.Clear();
         }
 
         private void cmbProductType_SelectedIndexChanged(object sender, EventArgs e)

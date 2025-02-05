@@ -11,6 +11,9 @@ namespace SistAlquilerFormWindows.Models.Interfaces
         string Name { get; }
         DateTime DateTimeStart { get; }
         DateTime EndDateTime { get; }
+        decimal PrecioxHora { get; }
+        IPriceStrategy PriceStrategy { get; }
+        decimal CalcularPrecioAlquiler();
         void Rent();
         void Return();
         string GetDetails();
