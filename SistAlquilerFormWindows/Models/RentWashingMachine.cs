@@ -45,7 +45,7 @@ namespace SistAlquilerFormWindows.Models
 
         public string GetDetails()
         {
-            return $"Usuario: {Name}, Brand: {Washing.Brand}, Model: {Washing.Model}, ID: {Washing.UniqueId}, Daily Rate: {DateTimeStart}";
+            return $"Usuario: {Name}, Brand: {Washing.Brand}, Daily Rate: {CalcularPrecioAlquiler()}";
         }
 
         public decimal CalcularPrecioAlquiler()
