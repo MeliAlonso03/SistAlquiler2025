@@ -25,6 +25,7 @@ namespace SistAlquilerFormWindows
         private CarController _carController = CarController.Instance;
         private ManagmentFactory _managment = new ManagmentFactory();
 
+
         public Form1()
         {
             InitializeComponent();
@@ -50,57 +51,90 @@ namespace SistAlquilerFormWindows
 
         private void btnAddProduct_Click(object sender, EventArgs e)
         {
+            if (!ValidateInput(out decimal pricePerHour)) return;
+
             string productType = cmbProductType.Text;
             string name = txtName.Text;
-            DateTime _dateTimeStart = dateTimeStart.Value;
-            DateTime _dateTimeFinish = dateTimeFinish.Value;
-            decimal precioXHora = decimal.Parse(txtPriceXHora.Text);
+            DateTime startDate = dateTimeStart.Value;
+            DateTime finishDate = dateTimeFinish.Value;
+
             try
             {
-                IRentableProduct product;
+                var product = CreateProduct(productType, name, startDate, finishDate, pricePerHour);
 
-                switch (productType)
-                {
-                    case "Car":
-                        // Obtén el objeto seleccionado del ComboBox
-                        if (cmbCar.SelectedItem is Car selectedCar)
-                        {
-                            product = (IRentableProduct)_managment.AlquilarAuto(productType, name, _dateTimeStart, _dateTimeFinish, precioXHora, selectedCar);
-                            //product = factories[productType].CreateProduct(name, _dateTimeStart, _dateTimeFinish, precioXHora, selectedCar, priceStrategy);
-                        }
-                        else
-                        {
-                            MessageBox.Show("Please select a valid car from the list.");
-                            return;
-                        }
-                        break;
-
-                    case "Washing Machine":
-                        // Obtén el objeto seleccionado del ComboBox
-                        if (cmbWashing.SelectedItem is WashingMachine selectedMachine)
-                        {
-                            product = (IRentableProduct)_managment.AlquilarWashingMachine(productType, name, _dateTimeStart, _dateTimeFinish, precioXHora, selectedMachine);
-                        }
-                        else
-                        {
-                            MessageBox.Show("Please select a valid washing machine from the list.");
-                            return;
-                        }
-                        break;
-
-                    default:
-                        MessageBox.Show("Invalid product type");
-                        return;
-                }
-
-                products.Add(product);
-                UpdateProductList();
-                ClearInputs();
+                UpdateUIAfterProductAdded(product);
             }
             catch (ArgumentException ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+        private bool ValidateInput(out decimal pricePerHour)
+        {
+            pricePerHour = 0;
+
+            if (!decimal.TryParse(txtPriceXHora.Text, out pricePerHour) || pricePerHour <= 0)
+            {
+                MessageBox.Show("Please enter a valid price per hour.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtName.Text))
+            {
+                MessageBox.Show("Please enter a valid name for the product.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (dateTimeStart.Value >= dateTimeFinish.Value)
+            {
+                MessageBox.Show("The start date must be earlier than the finish date.", "Invalid Date", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            return true;
+        }
+
+        private void UpdateUIAfterProductAdded(IRentableProduct product)
+        {
+            if (product != null)
+            {
+                products.Add(product);
+                UpdateProductList();
+                ClearInputs();
+            }
+        }
+        private IRentableProduct CreateProduct(string productType, string name, DateTime startDate, DateTime finishDate, decimal pricePerHour)
+        {
+            switch (productType)
+            {
+                case "Car":
+                    return CreateCarProduct(name, startDate, finishDate, pricePerHour);
+                case "Washing Machine":
+                    return CreateWashingMachineProduct(name, startDate, finishDate, pricePerHour);
+                default:
+                    MessageBox.Show("Invalid product type", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return null;
+            }
+        }
+
+        private IRentableProduct CreateCarProduct(string name, DateTime startDate, DateTime finishDate, decimal pricePerHour)
+        {
+            if (cmbCar.SelectedItem is Car selectedCar)
+            {
+                return _managment.AlquilarAuto("Car", name, startDate, finishDate, pricePerHour, selectedCar);
+            }
+            MessageBox.Show("Please select a valid car from the list.", "Invalid Selection", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return null;
+        }
+
+        private IRentableProduct CreateWashingMachineProduct(string name, DateTime startDate, DateTime finishDate, decimal pricePerHour)
+        {
+            if (cmbWashing.SelectedItem is WashingMachine selectedMachine)
+            {
+                return _managment.AlquilarWashingMachine("Washing Machine", name, startDate, finishDate, pricePerHour, selectedMachine);
+            }
+            MessageBox.Show("Please select a valid washing machine from the list.", "Invalid Selection", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return null;
         }
 
         private void UpdateProductList()
@@ -108,13 +142,23 @@ namespace SistAlquilerFormWindows
             lstProducts.Items.Clear();
             foreach (var product in products)
             {
-                lstProducts.Items.Add(product.GetDetails());
+                string productType = product.GetType().Name; 
+                lstProducts.Items.Add($"{productType}: {product.GetDetails()}");
             }
         }
         private void ClearInputs()
         {
             txtName.Clear();
             txtPriceXHora.Clear();
+        }
+        public int GetCarCount()
+        {
+            return _carController.GetAllCars().Count;
+        }
+
+        public int GetWashingMachineCount()
+        {
+            return _washingMachineController.GetAllCars().Count;
         }
 
         private void cmbProductType_SelectedIndexChanged(object sender, EventArgs e)
@@ -137,18 +181,6 @@ namespace SistAlquilerFormWindows
             }
         }
 
-        private void btnAddCars_Click(object sender, EventArgs e)
-        {
-            CreateCar carForm = new CreateCar(this);
-            carForm.ShowDialog();
-        }
-
-        private void btnAddWashingMachine_Click(object sender, EventArgs e)
-        {
-            CreateWashingMachine washing = new CreateWashingMachine(this);
-            washing.ShowDialog();
-        }
-
         public void UpdateCarComboBox()
         {
             cmbCar.Items.Clear();
@@ -160,5 +192,11 @@ namespace SistAlquilerFormWindows
             cmbWashing.Items.Clear();
             cmbWashing.Items.AddRange(_washingMachineController.GetAllCars().ToArray());
         }
+
+        //private void btnBack_Click(object sender, EventArgs e)
+        //{
+        //    this.Hide();
+        //    _inicio.Show();
+        //}
     }
 }

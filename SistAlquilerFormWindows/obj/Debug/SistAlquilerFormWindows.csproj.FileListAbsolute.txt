@@ -22,3 +22,16 @@ C:\Users\alons\OneDrive\Escritorio\EDIIIRefactorizado\SistAlquiler2025\SistAlqui
 C:\Users\alons\OneDrive\Escritorio\EDIIIRefactorizado\SistAlquiler2025\SistAlquilerFormWindows\obj\Debug\SistAlquilerFormWindows.csproj.CoreCompileInputs.cache
 C:\Users\alons\OneDrive\Escritorio\EDIIIRefactorizado\SistAlquiler2025\SistAlquilerFormWindows\obj\Debug\SistAlquilerFormWindows.exe
 C:\Users\alons\OneDrive\Escritorio\EDIIIRefactorizado\SistAlquiler2025\SistAlquilerFormWindows\obj\Debug\SistAlquilerFormWindows.pdb
+C:\Users\Noblex\Desktop\FINAAL\SistAlquiler2025\SistAlquilerFormWindows\bin\Debug\SistAlquilerFormWindows.exe.config
+C:\Users\Noblex\Desktop\FINAAL\SistAlquiler2025\SistAlquilerFormWindows\bin\Debug\SistAlquilerFormWindows.exe
+C:\Users\Noblex\Desktop\FINAAL\SistAlquiler2025\SistAlquilerFormWindows\bin\Debug\SistAlquilerFormWindows.pdb
+C:\Users\Noblex\Desktop\FINAAL\SistAlquiler2025\SistAlquilerFormWindows\obj\Debug\SistAlquilerFormWindows.csproj.AssemblyReference.cache
+C:\Users\Noblex\Desktop\FINAAL\SistAlquiler2025\SistAlquilerFormWindows\obj\Debug\SistAlquilerFormWindows.Form1.resources
+C:\Users\Noblex\Desktop\FINAAL\SistAlquiler2025\SistAlquilerFormWindows\obj\Debug\SistAlquilerFormWindows.Properties.Resources.resources
+C:\Users\Noblex\Desktop\FINAAL\SistAlquiler2025\SistAlquilerFormWindows\obj\Debug\SistAlquilerFormWindows.Views.CreateCar.resources
+C:\Users\Noblex\Desktop\FINAAL\SistAlquiler2025\SistAlquilerFormWindows\obj\Debug\SistAlquilerFormWindows.Views.CreateWashingMachine.resources
+C:\Users\Noblex\Desktop\FINAAL\SistAlquiler2025\SistAlquilerFormWindows\obj\Debug\SistAlquilerFormWindows.csproj.GenerateResource.cache
+C:\Users\Noblex\Desktop\FINAAL\SistAlquiler2025\SistAlquilerFormWindows\obj\Debug\SistAlquilerFormWindows.csproj.CoreCompileInputs.cache
+C:\Users\Noblex\Desktop\FINAAL\SistAlquiler2025\SistAlquilerFormWindows\obj\Debug\SistAlquilerFormWindows.exe
+C:\Users\Noblex\Desktop\FINAAL\SistAlquiler2025\SistAlquilerFormWindows\obj\Debug\SistAlquilerFormWindows.pdb
+C:\Users\Noblex\Desktop\FINAAL\SistAlquiler2025\SistAlquilerFormWindows\obj\Debug\SistAlquilerFormWindows.Inicio.resources

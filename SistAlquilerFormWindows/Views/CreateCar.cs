@@ -16,11 +16,12 @@ namespace SistAlquilerFormWindows.Views
     {
         private readonly CarController _carController;
         private readonly Form1 _form1;
-        public CreateCar(Form1 form1)
+        private readonly Inicio _inicio;
+        public CreateCar(Form1 form1, Inicio inicio)
         {
             InitializeComponent();
             _form1 = form1;
-
+            _inicio = inicio;
             // Obtiene la instancia única del controlador
             _carController = CarController.Instance;
         }
@@ -30,11 +31,18 @@ namespace SistAlquilerFormWindows.Views
             string model = txtModelCar.Text;
             string licencePlate = txtLicencePlate.Text;
 
+            if (string.IsNullOrWhiteSpace(model) || string.IsNullOrWhiteSpace(licencePlate))
+            {
+                MessageBox.Show("Both model and licence plate are required.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return; 
+            }
+
             _carController.AddCar(licencePlate, model); // Usa la instancia del campo global
             UpdateProductList();
             ClearInputs();
             _form1.UpdateCarComboBox();
         }
+
 
         private void UpdateProductList()
         {
@@ -46,6 +54,12 @@ namespace SistAlquilerFormWindows.Views
         {
             txtModelCar.Clear();
             txtLicencePlate.Clear();
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            this.Hide(); 
+            _inicio.Show();
         }
     }
 }

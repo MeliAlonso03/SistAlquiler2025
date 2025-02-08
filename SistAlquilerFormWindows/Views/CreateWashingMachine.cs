@@ -16,22 +16,30 @@ namespace SistAlquilerFormWindows.Views
     {
         private readonly WashingMachineController _washingController;
         private readonly Form1 _form1;
-        public CreateWashingMachine(Form1 form1)
+        private readonly Inicio _inicio;
+        public CreateWashingMachine(Form1 form1, Inicio inicio)
         {
             InitializeComponent();
             _form1 = form1;
 
             // Obtiene la instancia única del controlador
             _washingController = WashingMachineController.Instance;
+            _inicio = inicio;
         }
 
         private void btnAddWashingMachine_Click(object sender, EventArgs e)
         {
-            string Brand = txtBrand.Text;
-            string Model = txtModel.Text;
-            string UniqueId = txtUniqueId.Text;
+            string brand = txtBrand.Text;
+            string model = txtModel.Text;
+            string uniqueId = txtUniqueId.Text;
 
-            _washingController.AddWashingMachine(Brand, Model, UniqueId);
+            if (string.IsNullOrWhiteSpace(brand) || string.IsNullOrWhiteSpace(model) || string.IsNullOrWhiteSpace(uniqueId))
+            {
+                MessageBox.Show("All fields are required. Please fill in all the details.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return; 
+            }
+
+            _washingController.AddWashingMachine(brand, model, uniqueId);
             UpdateProductList();
             ClearInputs();
             _form1.UpdateWashingComboBox();
@@ -48,6 +56,12 @@ namespace SistAlquilerFormWindows.Views
             txtBrand.Clear();
             txtModel.Clear();
             txtUniqueId.Clear();
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            _inicio.Show();
         }
     }
 }
