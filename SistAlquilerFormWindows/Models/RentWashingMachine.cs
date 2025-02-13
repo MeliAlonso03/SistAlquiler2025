@@ -12,7 +12,6 @@ namespace SistAlquilerFormWindows.Models
     internal class RentWashingMachine : IRentableProduct
     {
         public string Name { get; private set; }
-        public bool IsAvailable { get; private set; } = true;
         public WashingMachine Washing {  get; private set; }
 
         public DateTime DateTimeStart { get; private set; }
@@ -21,7 +20,7 @@ namespace SistAlquilerFormWindows.Models
         public decimal PrecioxHora { get; set; }
 
         public IPriceStrategy PriceStrategy { get; set; }
-
+        public decimal Precio { get; set; }
         public RentWashingMachine(string name, DateTime dateTimeStart, DateTime endDateTime, decimal precioXHora, WashingMachine washing, IPriceStrategy priceStrategy)
         {
             Name = name;
@@ -33,14 +32,9 @@ namespace SistAlquilerFormWindows.Models
         }
         public void Rent()
         {
-            if (!IsAvailable)
+            if (!Washing.Available)
                 throw new InvalidOperationException("Washing machine is not available");
-            IsAvailable = false;
-        }
-
-        public void Return()
-        {
-            IsAvailable = true;
+            Washing.Available = false;
         }
 
         public string GetDetails()
@@ -51,7 +45,8 @@ namespace SistAlquilerFormWindows.Models
         public decimal CalcularPrecioAlquiler()
         {
             int horas = AlquilerDuracionCalculator.CalcularHorasAlquiler(DateTimeStart, EndDateTime);
-            return PriceStrategy.CalcularPrecio(horas);
+            Precio = PriceStrategy.CalcularPrecio(horas);
+            return Precio;
         }
 
     }

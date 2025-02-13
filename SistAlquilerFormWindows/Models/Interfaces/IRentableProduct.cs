@@ -12,10 +12,10 @@ namespace SistAlquilerFormWindows.Models.Interfaces
         DateTime DateTimeStart { get; }
         DateTime EndDateTime { get; }
         decimal PrecioxHora { get; }
+        decimal Precio {  get; }
         IPriceStrategy PriceStrategy { get; }
         decimal CalcularPrecioAlquiler();
         void Rent();
-        void Return();
         string GetDetails();
     }
 }

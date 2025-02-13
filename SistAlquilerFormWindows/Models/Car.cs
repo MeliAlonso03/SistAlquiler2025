@@ -21,7 +21,7 @@ namespace SistAlquilerFormWindows.Models
 
         public override string ToString()
         {
-            return "Patent: " + LicensePlate+ "Model: " + Model;
+            return  LicensePlate+ Model;
         }
     }
 }

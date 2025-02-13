@@ -12,7 +12,7 @@ namespace SistAlquilerFormWindows.Models
         public string Brand { get; private set; }
         public string Model { get; private set; }
         public string UniqueId { get; private set; }
-        public bool Available { get; private set; } = true;
+        public bool Available { get; set; } = true;
 
         public WashingMachine( string brand, string model, string uniqueId)
         {

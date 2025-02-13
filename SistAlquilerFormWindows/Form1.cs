@@ -1,4 +1,5 @@
 ﻿using SistAlquilerFormWindows.Controllers;
+using SistAlquilerFormWindows.DAO;
 using SistAlquilerFormWindows.Factory;
 using SistAlquilerFormWindows.Models;
 using SistAlquilerFormWindows.Models.Interfaces;
@@ -154,8 +155,18 @@ namespace SistAlquilerFormWindows
 
         private void UpdateProductList()
         {
-            lstProducts.Items.Clear();
-            lstProducts.Items.AddRange(rentController.GetAllCars().ToArray());
+            lVRent.Items.Clear();
+            List<IRentableProduct> rents = rentController.GetAllCars();
+
+            foreach (var rent in rents)
+            {
+                // Suponiendo que rent tiene una propiedad "Usuario" y "Objeto"
+                ListViewItem item = new ListViewItem(rent.Name); // clUsuario
+                item.SubItems.Add(rent.ToString()); // clObjeto
+                item.SubItems.Add(rent.CalcularPrecioAlquiler().ToString());
+                // Agregar el elemento al ListView
+                lVRent.Items.Add(item);
+            }
         }
         private void ClearInputs()
         {

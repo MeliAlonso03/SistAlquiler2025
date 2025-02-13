@@ -34,7 +34,6 @@
             this.lblDailyRate = new System.Windows.Forms.Label();
             this.btnAddProduct = new System.Windows.Forms.Button();
             this.cmbProductType = new System.Windows.Forms.ComboBox();
-            this.lstProducts = new System.Windows.Forms.ListBox();
             this.lblCar = new System.Windows.Forms.Label();
             this.cmbCar = new System.Windows.Forms.ComboBox();
             this.cmbWashing = new System.Windows.Forms.ComboBox();
@@ -45,6 +44,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btnBack = new System.Windows.Forms.Button();
+            this.lVRent = new System.Windows.Forms.ListView();
+            this.clUser = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.clObjeto = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.clPrice = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // txtPriceXHora
@@ -103,17 +106,6 @@
             this.cmbProductType.Size = new System.Drawing.Size(192, 24);
             this.cmbProductType.TabIndex = 13;
             this.cmbProductType.SelectedIndexChanged += new System.EventHandler(this.cmbProductType_SelectedIndexChanged);
-            // 
-            // lstProducts
-            // 
-            this.lstProducts.FormattingEnabled = true;
-            this.lstProducts.ItemHeight = 16;
-            this.lstProducts.Location = new System.Drawing.Point(363, 71);
-            this.lstProducts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.lstProducts.Name = "lstProducts";
-            this.lstProducts.Size = new System.Drawing.Size(421, 276);
-            this.lstProducts.TabIndex = 14;
-            this.lstProducts.SelectedIndexChanged += new System.EventHandler(this.lstProducts_SelectedIndexChanged);
             // 
             // lblCar
             // 
@@ -216,11 +208,41 @@
             this.btnBack.UseVisualStyleBackColor = false;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
+            // lVRent
+            // 
+            this.lVRent.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.clUser,
+            this.clObjeto,
+            this.clPrice});
+            this.lVRent.HideSelection = false;
+            this.lVRent.Location = new System.Drawing.Point(373, 83);
+            this.lVRent.Name = "lVRent";
+            this.lVRent.Size = new System.Drawing.Size(379, 257);
+            this.lVRent.TabIndex = 28;
+            this.lVRent.UseCompatibleStateImageBehavior = false;
+            this.lVRent.View = System.Windows.Forms.View.Details;
+            // 
+            // clUser
+            // 
+            this.clUser.Text = "Usuario";
+            this.clUser.Width = 90;
+            // 
+            // clObjeto
+            // 
+            this.clObjeto.Text = "Objeto";
+            this.clObjeto.Width = 122;
+            // 
+            // clPrice
+            // 
+            this.clPrice.Text = "Precio";
+            this.clPrice.Width = 113;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lVRent);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -231,7 +253,6 @@
             this.Controls.Add(this.lblWashing);
             this.Controls.Add(this.cmbCar);
             this.Controls.Add(this.lblCar);
-            this.Controls.Add(this.lstProducts);
             this.Controls.Add(this.cmbProductType);
             this.Controls.Add(this.btnAddProduct);
             this.Controls.Add(this.txtName);
@@ -253,7 +274,6 @@
         private System.Windows.Forms.Label lblDailyRate;
         private System.Windows.Forms.Button btnAddProduct;
         private System.Windows.Forms.ComboBox cmbProductType;
-        private System.Windows.Forms.ListBox lstProducts;
         private System.Windows.Forms.Label lblCar;
         private System.Windows.Forms.ComboBox cmbCar;
         private System.Windows.Forms.ComboBox cmbWashing;
@@ -264,6 +284,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnBack;
+        private System.Windows.Forms.ListView lVRent;
+        private System.Windows.Forms.ColumnHeader clUser;
+        private System.Windows.Forms.ColumnHeader clObjeto;
+        private System.Windows.Forms.ColumnHeader clPrice;
     }
 }
 
