@@ -16,7 +16,7 @@ namespace SistAlquilerFormWindows
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Inicio(new Form1()));
+            Application.Run(new Inicio(Form1.GetInstance()));
 
         }
     }

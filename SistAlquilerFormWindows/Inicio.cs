@@ -38,7 +38,9 @@ namespace SistAlquilerFormWindows
 
         private void btnRent_Click(object sender, EventArgs e)
         {
-            _form1.Show();
+            Form1 form = Form1.GetInstance(); 
+            form.Show();
+            form.BringToFront();
         }
         private void UpdateRentButton()
         {

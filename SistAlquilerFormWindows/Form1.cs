@@ -19,6 +19,8 @@ namespace SistAlquilerFormWindows
 {
     public partial class Form1 : Form
     {
+        private static Form1 instance;
+
         private Dictionary<string, IProductFactory> factories;
         private List<IRentableProduct> products;
         private WashingMachineController _washingMachineController = WashingMachineController.Instance;
@@ -26,13 +28,20 @@ namespace SistAlquilerFormWindows
         private ManagmentFactory _managment = new ManagmentFactory();
 
 
-        public Form1()
+        private Form1()
         {
             InitializeComponent();
             InitializeFactories();
             InitializeComboBox();
             products = new List<IRentableProduct>();
-
+        }
+        public static Form1 GetInstance()
+        {
+            if (instance == null || instance.IsDisposed)
+            {
+                instance = new Form1();
+            }
+            return instance;
         }
         private void InitializeComboBox()
         {
@@ -193,10 +202,10 @@ namespace SistAlquilerFormWindows
             cmbWashing.Items.AddRange(_washingMachineController.GetAllCars().ToArray());
         }
 
-        //private void btnBack_Click(object sender, EventArgs e)
-        //{
-        //    this.Hide();
-        //    _inicio.Show();
-        //}
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
+
     }
 }

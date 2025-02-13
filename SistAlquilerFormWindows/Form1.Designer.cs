@@ -50,7 +50,7 @@
             // txtPriceXHora
             // 
             this.txtPriceXHora.Location = new System.Drawing.Point(137, 258);
-            this.txtPriceXHora.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtPriceXHora.Margin = new System.Windows.Forms.Padding(2);
             this.txtPriceXHora.Name = "txtPriceXHora";
             this.txtPriceXHora.Size = new System.Drawing.Size(92, 20);
             this.txtPriceXHora.TabIndex = 9;
@@ -68,7 +68,7 @@
             // txtName
             // 
             this.txtName.Location = new System.Drawing.Point(137, 101);
-            this.txtName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtName.Margin = new System.Windows.Forms.Padding(2);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(92, 20);
             this.txtName.TabIndex = 11;
@@ -88,7 +88,7 @@
             this.btnAddProduct.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.btnAddProduct.Font = new System.Drawing.Font("Consolas", 15F);
             this.btnAddProduct.Location = new System.Drawing.Point(77, 311);
-            this.btnAddProduct.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnAddProduct.Margin = new System.Windows.Forms.Padding(2);
             this.btnAddProduct.Name = "btnAddProduct";
             this.btnAddProduct.Size = new System.Drawing.Size(92, 37);
             this.btnAddProduct.TabIndex = 12;
@@ -100,7 +100,7 @@
             // 
             this.cmbProductType.FormattingEnabled = true;
             this.cmbProductType.Location = new System.Drawing.Point(58, 58);
-            this.cmbProductType.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbProductType.Margin = new System.Windows.Forms.Padding(2);
             this.cmbProductType.Name = "cmbProductType";
             this.cmbProductType.Size = new System.Drawing.Size(145, 21);
             this.cmbProductType.TabIndex = 13;
@@ -110,7 +110,7 @@
             // 
             this.lstProducts.FormattingEnabled = true;
             this.lstProducts.Location = new System.Drawing.Point(272, 58);
-            this.lstProducts.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lstProducts.Margin = new System.Windows.Forms.Padding(2);
             this.lstProducts.Name = "lstProducts";
             this.lstProducts.Size = new System.Drawing.Size(317, 225);
             this.lstProducts.TabIndex = 14;
@@ -129,7 +129,7 @@
             // 
             this.cmbCar.FormattingEnabled = true;
             this.cmbCar.Location = new System.Drawing.Point(137, 189);
-            this.cmbCar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbCar.Margin = new System.Windows.Forms.Padding(2);
             this.cmbCar.Name = "cmbCar";
             this.cmbCar.Size = new System.Drawing.Size(92, 21);
             this.cmbCar.TabIndex = 18;
@@ -138,7 +138,7 @@
             // 
             this.cmbWashing.FormattingEnabled = true;
             this.cmbWashing.Location = new System.Drawing.Point(137, 220);
-            this.cmbWashing.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbWashing.Margin = new System.Windows.Forms.Padding(2);
             this.cmbWashing.Name = "cmbWashing";
             this.cmbWashing.Size = new System.Drawing.Size(92, 21);
             this.cmbWashing.TabIndex = 20;
@@ -158,7 +158,7 @@
             this.dateTimeStart.CustomFormat = "dd/MM/yyyy HH:mm";
             this.dateTimeStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimeStart.Location = new System.Drawing.Point(86, 139);
-            this.dateTimeStart.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dateTimeStart.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimeStart.Name = "dateTimeStart";
             this.dateTimeStart.Size = new System.Drawing.Size(143, 20);
             this.dateTimeStart.TabIndex = 21;
@@ -168,7 +168,7 @@
             this.dateTimeFinish.CustomFormat = "dd/MM/yyyy HH:mm";
             this.dateTimeFinish.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimeFinish.Location = new System.Drawing.Point(86, 163);
-            this.dateTimeFinish.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dateTimeFinish.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimeFinish.Name = "dateTimeFinish";
             this.dateTimeFinish.Size = new System.Drawing.Size(143, 20);
             this.dateTimeFinish.TabIndex = 23;
@@ -194,10 +194,10 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Cooper Black", 20.25F);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.label3.Location = new System.Drawing.Point(367, 25);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(112, 31);
+            this.label3.Size = new System.Drawing.Size(102, 31);
             this.label3.TabIndex = 26;
             this.label3.Text = "Rented";
             // 
@@ -211,7 +211,7 @@
             this.btnBack.TabIndex = 27;
             this.btnBack.Text = "Back";
             this.btnBack.UseVisualStyleBackColor = false;
-            //this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // Form1
             // 
@@ -235,7 +235,7 @@
             this.Controls.Add(this.lblDailyRate);
             this.Controls.Add(this.txtPriceXHora);
             this.Controls.Add(this.lblName);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
