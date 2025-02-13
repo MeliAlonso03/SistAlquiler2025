@@ -44,12 +44,12 @@ namespace SistAlquilerFormWindows.Controllers
                 return _instance;
             }
         }
-        public void AddRent(IRentableProduct product)
+        public void AddRent(RentableProduct product)
         {
             rentService.AddRent(product);
         }
 
-        public List<IRentableProduct> GetAllCars()
+        public List<RentableProduct> GetAllCars()
         {
             return rentService.GetAllRent();
         }

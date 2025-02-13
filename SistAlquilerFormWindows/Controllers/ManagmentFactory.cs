@@ -15,10 +15,8 @@ namespace SistAlquilerFormWindows.Controllers
     internal class ManagmentFactory
     {
         private Dictionary<string, IProductFactory> factories;
-        string productType;
-        string name;
         private IPriceStrategy priceStrategy;
-        IRentableProduct product;
+        RentableProduct product;
 
         public ManagmentFactory()
         {
@@ -59,14 +57,14 @@ namespace SistAlquilerFormWindows.Controllers
         public RentCar AlquilarAuto(string productType, string name, DateTime dateTimeStart, DateTime dateTimeFinish, decimal precioXHora, Car selectedCar)
         {
             priceStrategy = estrategiaPrecio(dateTimeStart, dateTimeFinish, precioXHora);
-            product = factories[productType].CreateProduct(name, dateTimeStart, dateTimeFinish, precioXHora, selectedCar, priceStrategy);
+            product = factories[productType].CreateRent(name, dateTimeStart, dateTimeFinish, precioXHora, selectedCar, priceStrategy);
             return (RentCar)product;
         }
 
         public RentWashingMachine AlquilarWashingMachine(string productType, string name, DateTime dateTimeStart, DateTime dateTimeFinish, decimal precioXHora, WashingMachine selectedWashingMachine)
         {
             IPriceStrategy priceStrategy = estrategiaPrecio(dateTimeStart, dateTimeFinish, precioXHora);
-            product = factories[productType].CreateProduct(name, dateTimeStart, dateTimeFinish, precioXHora, selectedWashingMachine, priceStrategy);
+            product = factories[productType].CreateRent(name, dateTimeStart, dateTimeFinish, precioXHora, selectedWashingMachine, priceStrategy);
             return (RentWashingMachine)product;
         }
     }

@@ -9,45 +9,40 @@ using System.Threading.Tasks;
 
 namespace SistAlquilerFormWindows.Models
 {
-    internal class RentWashingMachine : IRentableProduct
+    internal class RentWashingMachine : RentableProduct
     {
-        public string Name { get; private set; }
-        public WashingMachine Washing {  get; private set; }
+        public WashingMachine Washing { get; private set; }
 
-        public DateTime DateTimeStart { get; private set; }
-
-        public DateTime EndDateTime { get; private set; }
-        public decimal PrecioxHora { get; set; }
-
-        public IPriceStrategy PriceStrategy { get; set; }
-        public decimal Precio { get; set; }
         public RentWashingMachine(string name, DateTime dateTimeStart, DateTime endDateTime, decimal precioXHora, WashingMachine washing, IPriceStrategy priceStrategy)
+            : base(name, dateTimeStart, endDateTime, precioXHora, priceStrategy) // Llama al constructor de la clase base
         {
-            Name = name;
-            DateTimeStart = dateTimeStart;
-            EndDateTime = endDateTime;
-            PrecioxHora = precioXHora;
             Washing = washing;
-            PriceStrategy = priceStrategy;
         }
-        public void Rent()
+
+        public override void Rent()
         {
             if (!Washing.Available)
-                throw new InvalidOperationException("Washing machine is not available");
+                throw new InvalidOperationException("Washing machine is not available.");
             Washing.Available = false;
         }
 
-        public string GetDetails()
+        public override string GetDetails()
         {
-            return $"Usuario: {Name}, Brand: {Washing.Brand}, Daily Rate: {CalcularPrecioAlquiler()}";
+            return $"[ID {Id}] Producto: {Name}, Marca: {Washing.Brand}, Precio Total: {CalcularPrecioAlquiler()}";
         }
 
-        public decimal CalcularPrecioAlquiler()
+        public override decimal CalcularPrecioAlquiler()
         {
             int horas = AlquilerDuracionCalculator.CalcularHorasAlquiler(DateTimeStart, EndDateTime);
             Precio = PriceStrategy.CalcularPrecio(horas);
             return Precio;
         }
 
+        public override string ToString()
+        {
+            return $"[ID {Id}] {Washing}";
+        }
     }
+
 }
+

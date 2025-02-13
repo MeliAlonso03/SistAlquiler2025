@@ -10,6 +10,6 @@ namespace SistAlquilerFormWindows.DAO
 {
     public class RentDAO
     {
-        public List<IRentableProduct> rents = new List<IRentableProduct>();
+        public List<RentableProduct> rents = new List<RentableProduct>();
     }
 }

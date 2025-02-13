@@ -16,12 +16,12 @@ namespace SistAlquilerFormWindows.Services
         {
             _RentDAO = new RentDAO();
         }
-        public void AddRent(IRentableProduct product)
+        public void AddRent(RentableProduct product)
         {
             _RentDAO.rents.Add(product);
         }
 
-        internal List<IRentableProduct> GetAllRent()
+        internal List<RentableProduct> GetAllRent()
         {
             return _RentDAO.rents;
         }

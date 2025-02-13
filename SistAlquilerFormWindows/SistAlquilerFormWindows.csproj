@@ -70,7 +70,7 @@
     </Compile>
     <Compile Include="Models\Car.cs" />
     <Compile Include="Models\Interfaces\IPriceStrategy.cs" />
-    <Compile Include="Models\Interfaces\IRentableProduct.cs" />
+    <Compile Include="Models\Interfaces\RentableProduct.cs" />
     <Compile Include="Models\PriceStrategy\PriceFixedStrategy.cs" />
     <Compile Include="Models\PriceStrategy\PriceMonthStrategy.cs" />
     <Compile Include="Models\RentCar.cs" />

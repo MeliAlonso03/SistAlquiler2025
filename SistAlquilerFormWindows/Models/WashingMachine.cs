@@ -22,7 +22,7 @@ namespace SistAlquilerFormWindows.Models
         }
         public override string ToString()
         {
-            return "Ava: "+ Available+ "Brand: " +Brand+ "Model: " +Model+ "UniqueId: " +UniqueId;
+            return Brand+ "Model: " +Model+ "UniqueId: " +UniqueId;
         }
 
 

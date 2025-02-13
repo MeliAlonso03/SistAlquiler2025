@@ -24,7 +24,6 @@ namespace SistAlquilerFormWindows
         private static Form1 instance;
 
         private Dictionary<string, IProductFactory> factories;
-        private List<IRentableProduct> products;
         private RentController rentController = RentController.Instance;
         private WashingMachineController _washingMachineController = WashingMachineController.Instance;
         private CarController _carController = CarController.Instance;
@@ -39,7 +38,6 @@ namespace SistAlquilerFormWindows
             UpdateCarComboBox();
             UpdateWashingComboBox();
             UpdateProductList();
-            products = new List<IRentableProduct>();
         }
         public static Form1 GetInstance()
         {
@@ -109,7 +107,7 @@ namespace SistAlquilerFormWindows
             return true;
         }
 
-        private void UpdateUIAfterProductAdded(IRentableProduct product)
+        private void UpdateUIAfterProductAdded(RentableProduct product)
         {
             if (product != null)
             {
@@ -119,7 +117,7 @@ namespace SistAlquilerFormWindows
                 ClearInputs();
             }
         }
-        private IRentableProduct CreateProduct(string productType, string name, DateTime startDate, DateTime finishDate, decimal pricePerHour)
+        private RentableProduct CreateProduct(string productType, string name, DateTime startDate, DateTime finishDate, decimal pricePerHour)
         {
             switch (productType)
             {
@@ -133,7 +131,7 @@ namespace SistAlquilerFormWindows
             }
         }
 
-        private IRentableProduct CreateCarProduct(string name, DateTime startDate, DateTime finishDate, decimal pricePerHour)
+        private RentableProduct CreateCarProduct(string name, DateTime startDate, DateTime finishDate, decimal pricePerHour)
         {
             if (cmbCar.SelectedItem is Car selectedCar)
             {
@@ -143,7 +141,7 @@ namespace SistAlquilerFormWindows
             return null;
         }
 
-        private IRentableProduct CreateWashingMachineProduct(string name, DateTime startDate, DateTime finishDate, decimal pricePerHour)
+        private RentableProduct CreateWashingMachineProduct(string name, DateTime startDate, DateTime finishDate, decimal pricePerHour)
         {
             if (cmbWashing.SelectedItem is WashingMachine selectedMachine)
             {
@@ -156,7 +154,7 @@ namespace SistAlquilerFormWindows
         private void UpdateProductList()
         {
             lVRent.Items.Clear();
-            List<IRentableProduct> rents = rentController.GetAllCars();
+            List<RentableProduct> rents = rentController.GetAllCars();
 
             foreach (var rent in rents)
             {

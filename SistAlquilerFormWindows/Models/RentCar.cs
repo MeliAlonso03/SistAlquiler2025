@@ -9,48 +9,38 @@ using System.Threading.Tasks;
 
 namespace SistAlquilerFormWindows.Models
 {
-    internal class RentCar : IRentableProduct
+    internal class RentCar : RentableProduct
     {
-        public string Name { get; private set; }
-        public Car car { get; private set; }
+        public Car Car { get; private set; }
 
-        public DateTime DateTimeStart { get; private set; }
-
-        public DateTime EndDateTime { get; private set; }
-
-        public decimal PrecioxHora { get; set; }
-
-        public IPriceStrategy PriceStrategy { get; set; }
-        public decimal Precio { get; set; }
         public RentCar(string name, DateTime dateTimeStart, DateTime endDateTime, decimal precioXHora, Car car, IPriceStrategy priceStrategy)
+            : base(name, dateTimeStart, endDateTime, precioXHora, priceStrategy) // Llamamos al constructor de la clase base
         {
-            Name = name;
-            DateTimeStart = dateTimeStart;
-            this.car = car ?? throw new ArgumentNullException(nameof(car), "Car no puede ser null");
-            EndDateTime = endDateTime;
-            PrecioxHora = precioXHora;
-            PriceStrategy = priceStrategy ?? throw new ArgumentNullException(nameof(priceStrategy), "PriceStrategy no puede ser null");
-        }
-        public void Rent()
-        {
-            if (!car.Available)
-                throw new InvalidOperationException("Car is not available");
+            Car = car ?? throw new ArgumentNullException(nameof(car), "Car no puede ser null");
         }
 
-        public string GetDetails()
+        public override void Rent()
         {
-            return $"Usuario: {Name}, License Plate: {car.LicensePlate}, Daily Rate: ${CalcularPrecioAlquiler()}";
+            if (!Car.Available)
+                throw new InvalidOperationException("El auto no está disponible.");
+            Car.Available = false;
         }
 
-        public decimal CalcularPrecioAlquiler()
+        public override string GetDetails()
+        {
+            return $"[ID {Id}] Usuario: {Name}, Auto: {Car.LicensePlate}, Precio Total: ${CalcularPrecioAlquiler()}";
+        }
+
+        public override decimal CalcularPrecioAlquiler()
         {
             int horas = AlquilerDuracionCalculator.CalcularHorasAlquiler(DateTimeStart, EndDateTime);
             Precio = PriceStrategy.CalcularPrecio(horas);
             return Precio;
         }
+
         public override string ToString()
         {
-            return car.ToString();
+            return $"[ID {Id}] {Car}";
         }
     }
 }

@@ -11,7 +11,7 @@ namespace SistAlquilerFormWindows.Factory
     internal class CarFactory : IProductFactory
     {
 
-        public IRentableProduct CreateProduct<T>(string name, DateTime startDateTime, DateTime endDateTime, decimal precio, T additionalObject, IPriceStrategy priceStrategy)
+        public RentableProduct CreateRent<T>(string name, DateTime startDateTime, DateTime endDateTime, decimal precio, T additionalObject, IPriceStrategy priceStrategy)
         {
             if (additionalObject is Car car)
             {
