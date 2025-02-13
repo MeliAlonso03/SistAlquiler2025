@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SistAlquilerFormWindows.Models.Interfaces
 {
-    internal interface IRentableProduct
+    public interface IRentableProduct
     {
         string Name { get; }
         DateTime DateTimeStart { get; }

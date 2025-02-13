@@ -21,15 +21,14 @@ namespace SistAlquilerFormWindows.Models
         public decimal PrecioxHora { get; set; }
 
         public IPriceStrategy PriceStrategy { get; set; }
-
         public RentCar(string name, DateTime dateTimeStart, DateTime endDateTime, decimal precioXHora, Car car, IPriceStrategy priceStrategy)
         {
             Name = name;
             DateTimeStart = dateTimeStart;
-            this.car = car;
+            this.car = car ?? throw new ArgumentNullException(nameof(car), "Car no puede ser null");
             EndDateTime = endDateTime;
             PrecioxHora = precioXHora;
-            PriceStrategy = priceStrategy;
+            PriceStrategy = priceStrategy ?? throw new ArgumentNullException(nameof(priceStrategy), "PriceStrategy no puede ser null");
         }
         public void Rent()
         {

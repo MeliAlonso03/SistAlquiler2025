@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SistAlquilerFormWindows.Models.Interfaces
 {
-    internal interface IPriceStrategy
+    public interface IPriceStrategy
     {
         decimal CalcularPrecio(int horas);
     }

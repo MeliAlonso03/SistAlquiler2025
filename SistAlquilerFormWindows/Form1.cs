@@ -3,6 +3,7 @@ using SistAlquilerFormWindows.Factory;
 using SistAlquilerFormWindows.Models;
 using SistAlquilerFormWindows.Models.Interfaces;
 using SistAlquilerFormWindows.Models.PriceStrategy;
+using SistAlquilerFormWindows.Services;
 using SistAlquilerFormWindows.Views;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace SistAlquilerFormWindows
 
         private Dictionary<string, IProductFactory> factories;
         private List<IRentableProduct> products;
+        private RentController rentController = RentController.Instance;
         private WashingMachineController _washingMachineController = WashingMachineController.Instance;
         private CarController _carController = CarController.Instance;
         private ManagmentFactory _managment = new ManagmentFactory();
@@ -33,6 +35,9 @@ namespace SistAlquilerFormWindows
             InitializeComponent();
             InitializeFactories();
             InitializeComboBox();
+            UpdateCarComboBox();
+            UpdateWashingComboBox();
+            UpdateProductList();
             products = new List<IRentableProduct>();
         }
         public static Form1 GetInstance()
@@ -107,7 +112,8 @@ namespace SistAlquilerFormWindows
         {
             if (product != null)
             {
-                products.Add(product);
+                rentController.AddRent(product);
+                //products.Add(product);
                 UpdateProductList();
                 ClearInputs();
             }
@@ -149,11 +155,7 @@ namespace SistAlquilerFormWindows
         private void UpdateProductList()
         {
             lstProducts.Items.Clear();
-            foreach (var product in products)
-            {
-                string productType = product.GetType().Name; 
-                lstProducts.Items.Add($"{productType}: {product.GetDetails()}");
-            }
+            lstProducts.Items.AddRange(rentController.GetAllCars().ToArray());
         }
         private void ClearInputs()
         {
@@ -207,5 +209,14 @@ namespace SistAlquilerFormWindows
             this.Hide();
         }
 
+        private void cmbCar_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lstProducts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

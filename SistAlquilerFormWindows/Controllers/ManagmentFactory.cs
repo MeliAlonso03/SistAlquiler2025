@@ -17,6 +17,7 @@ namespace SistAlquilerFormWindows.Controllers
         private Dictionary<string, IProductFactory> factories;
         string productType;
         string name;
+        private IPriceStrategy priceStrategy;
         IRentableProduct product;
 
         public ManagmentFactory()
@@ -37,6 +38,7 @@ namespace SistAlquilerFormWindows.Controllers
         {
             int duracionHoras = AlquilerDuracionCalculator.CalcularHorasAlquiler(_dateTimeStart, _dateTimeFinish);
             IPriceStrategy priceStrategy = null;
+
             switch (duracionHoras)
             {
                 case int horas when horas > 24:
@@ -45,13 +47,18 @@ namespace SistAlquilerFormWindows.Controllers
                 case int horas when horas < 24:
                     priceStrategy = new PriceFixedStrategy(precioXHora);
                     break;
+                case 24:
+                    // Puedes decidir qué estrategia usar para exactamente 24 horas, por ejemplo:
+                    priceStrategy = new PriceFixedStrategy(precioXHora);  // O cualquier otra estrategia
+                    break;
             }
+
             return priceStrategy;
         }
 
         public RentCar AlquilarAuto(string productType, string name, DateTime dateTimeStart, DateTime dateTimeFinish, decimal precioXHora, Car selectedCar)
         {
-            IPriceStrategy priceStrategy = estrategiaPrecio(dateTimeStart, dateTimeFinish, precioXHora);
+            priceStrategy = estrategiaPrecio(dateTimeStart, dateTimeFinish, precioXHora);
             product = factories[productType].CreateProduct(name, dateTimeStart, dateTimeFinish, precioXHora, selectedCar, priceStrategy);
             return (RentCar)product;
         }
