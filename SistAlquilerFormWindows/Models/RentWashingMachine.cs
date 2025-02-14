@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SistAlquilerFormWindows.Models
 {
@@ -21,9 +22,13 @@ namespace SistAlquilerFormWindows.Models
 
         public override void Rent()
         {
-            if (!Washing.Available)
-                throw new InvalidOperationException("Washing machine is not available.");
-            Washing.Available = false;
+            if (!Washing.IsAvailable(DateTimeStart, EndDateTime))
+            {
+                MessageBox.Show("El Lavarropas no está disponible en las fechas seleccionadas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            Washing.Rent(DateTimeStart, EndDateTime);
+
         }
 
         public override string GetDetails()

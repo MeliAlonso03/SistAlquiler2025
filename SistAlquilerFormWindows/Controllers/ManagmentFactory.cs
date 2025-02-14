@@ -47,8 +47,7 @@ namespace SistAlquilerFormWindows.Controllers
                     priceStrategy = new PriceFixedStrategy(precioXHora);
                     break;
                 case 24:
-                    // Puedes decidir qué estrategia usar para exactamente 24 horas, por ejemplo:
-                    priceStrategy = new PriceFixedStrategy(precioXHora);  // O cualquier otra estrategia
+                    priceStrategy = new PriceFixedStrategy(precioXHora);  
                     break;
             }
 
@@ -71,7 +70,12 @@ namespace SistAlquilerFormWindows.Controllers
 
         public RentWashingMachine AlquilarWashingMachine(string productType, string name, DateTime dateTimeStart, DateTime dateTimeFinish, decimal precioXHora, WashingMachine selectedWashingMachine)
         {
-            IPriceStrategy priceStrategy = estrategiaPrecio(dateTimeStart, dateTimeFinish, precioXHora);
+            if (!selectedWashingMachine.IsAvailable(dateTimeStart, dateTimeFinish))
+            {
+                MessageBox.Show("El Lavarropa ya está alquilado en esas fechas.", "Disponibilidad", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return null;
+            }
+            priceStrategy = estrategiaPrecio(dateTimeStart, dateTimeFinish, precioXHora);
             product = factories[productType].CreateRent(name, dateTimeStart, dateTimeFinish, precioXHora, selectedWashingMachine, priceStrategy);
             product.Rent();
             return (RentWashingMachine)product;

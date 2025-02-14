@@ -1,4 +1,5 @@
 ﻿using SistAlquilerFormWindows.Controllers;
+using SistAlquilerFormWindows.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -47,8 +48,16 @@ namespace SistAlquilerFormWindows.Views
 
         private void UpdateProductList()
         {
-            lstWashingMachine.Items.Clear();
-            lstWashingMachine.Items.AddRange(_washingController.GetAllCars().ToArray());
+            lvWashing.Items.Clear();
+            List<WashingMachine> washings = _washingController.GetAllCars();
+
+            foreach (var washing in washings)
+            {
+                ListViewItem item = new ListViewItem(washing.Brand);
+                item.SubItems.Add(washing.Model);
+                item.SubItems.Add(washing.UniqueId);
+                lvWashing.Items.Add(item);
+            }
         }
 
         private void ClearInputs()

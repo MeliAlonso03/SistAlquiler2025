@@ -1,9 +1,12 @@
 ﻿using SistAlquilerFormWindows.Controllers;
+using SistAlquilerFormWindows.Models;
+using SistAlquilerFormWindows.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,8 +49,15 @@ namespace SistAlquilerFormWindows.Views
 
         private void UpdateProductList()
         {
-            lstCars.Items.Clear();
-            lstCars.Items.AddRange(_carController.GetAllCars().ToArray()); // Usa el campo global
+            lvCar.Items.Clear();
+            List<Car> cars = _carController.GetAllCars();
+
+            foreach (var car in cars)
+            {
+                ListViewItem item = new ListViewItem(car.LicensePlate);
+                item.SubItems.Add(car.Model);
+                lvCar.Items.Add(item);
+            }
         }
 
         private void ClearInputs()

@@ -151,8 +151,15 @@ namespace SistAlquilerFormWindows
         {
             if (cmbWashing.SelectedItem is WashingMachine selectedMachine)
             {
-                return _managment.AlquilarWashingMachine("Washing Machine", name, startDate, finishDate, pricePerHour, selectedMachine);
+                var rentedWashingMachine = _managment.AlquilarWashingMachine("Washing Machine", name, startDate, finishDate, pricePerHour, selectedMachine);
+                if (rentedWashingMachine == null)
+                {
+                    MessageBox.Show("El Lavarropa no está disponible en esas fechas.", "Error de disponibilidad", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return null;
+                }
+                return rentedWashingMachine; 
             }
+
             MessageBox.Show("Please select a valid washing machine from the list.", "Invalid Selection", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return null;
         }
@@ -164,9 +171,8 @@ namespace SistAlquilerFormWindows
 
             foreach (var rent in rents)
             {
-                // Suponiendo que rent tiene una propiedad "Usuario" y "Objeto"
-                ListViewItem item = new ListViewItem(rent.Name); // clUsuario
-                item.SubItems.Add(rent.ToString()); // clObjeto
+                ListViewItem item = new ListViewItem(rent.Name); 
+                item.SubItems.Add(rent.ToString()); 
                 item.SubItems.Add(rent.CalcularPrecioAlquiler().ToString());
                 // Agregar el elemento al ListView
                 lVRent.Items.Add(item);
