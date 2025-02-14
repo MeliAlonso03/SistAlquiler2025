@@ -28,7 +28,7 @@ namespace SistAlquilerFormWindows.Models
 
         public override string GetDetails()
         {
-            return $"[ID {Id}] Producto: {Name}, Marca: {Washing.Brand}, Precio Total: {CalcularPrecioAlquiler()}";
+            return "Producto: {Name}, Marca: {Washing.Brand}, Precio Total: {CalcularPrecioAlquiler()}";
         }
 
         public override decimal CalcularPrecioAlquiler()
@@ -40,7 +40,7 @@ namespace SistAlquilerFormWindows.Models
 
         public override string ToString()
         {
-            return $"[ID {Id}] {Washing}";
+            return $"{Washing}";
         }
     }
 

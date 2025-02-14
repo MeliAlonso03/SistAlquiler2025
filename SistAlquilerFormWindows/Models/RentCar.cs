@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SistAlquilerFormWindows.Models
 {
@@ -21,9 +22,13 @@ namespace SistAlquilerFormWindows.Models
 
         public override void Rent()
         {
-            if (!Car.Available)
-                throw new InvalidOperationException("El auto no está disponible.");
-            Car.Available = false;
+            if (!Car.IsAvailable(DateTimeStart, EndDateTime))
+            {
+                MessageBox.Show("El auto no está disponible en las fechas seleccionadas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            Car.Rent(DateTimeStart, EndDateTime);
         }
 
         public override string GetDetails()

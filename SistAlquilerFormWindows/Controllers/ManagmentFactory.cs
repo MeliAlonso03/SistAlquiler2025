@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Xml.Linq;
 
 namespace SistAlquilerFormWindows.Controllers
@@ -56,8 +57,15 @@ namespace SistAlquilerFormWindows.Controllers
 
         public RentCar AlquilarAuto(string productType, string name, DateTime dateTimeStart, DateTime dateTimeFinish, decimal precioXHora, Car selectedCar)
         {
+            if (!selectedCar.IsAvailable(dateTimeStart, dateTimeFinish))
+            {
+                MessageBox.Show("El auto ya está alquilado en esas fechas.", "Disponibilidad", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return null;
+            }
+
             priceStrategy = estrategiaPrecio(dateTimeStart, dateTimeFinish, precioXHora);
             product = factories[productType].CreateRent(name, dateTimeStart, dateTimeFinish, precioXHora, selectedCar, priceStrategy);
+            product.Rent();
             return (RentCar)product;
         }
 
@@ -65,6 +73,7 @@ namespace SistAlquilerFormWindows.Controllers
         {
             IPriceStrategy priceStrategy = estrategiaPrecio(dateTimeStart, dateTimeFinish, precioXHora);
             product = factories[productType].CreateRent(name, dateTimeStart, dateTimeFinish, precioXHora, selectedWashingMachine, priceStrategy);
+            product.Rent();
             return (RentWashingMachine)product;
         }
     }

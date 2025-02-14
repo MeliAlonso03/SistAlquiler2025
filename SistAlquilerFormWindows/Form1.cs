@@ -135,9 +135,15 @@ namespace SistAlquilerFormWindows
         {
             if (cmbCar.SelectedItem is Car selectedCar)
             {
-                return _managment.AlquilarAuto("Car", name, startDate, finishDate, pricePerHour, selectedCar);
+                var rentedCar = _managment.AlquilarAuto("Car", name, startDate, finishDate, pricePerHour, selectedCar);
+                if (rentedCar == null)
+                {
+                    MessageBox.Show("El auto no está disponible en esas fechas.", "Error de disponibilidad", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return null;
+                }
+                return rentedCar;
             }
-            MessageBox.Show("Please select a valid car from the list.", "Invalid Selection", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show("Por favor seleccione un auto válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return null;
         }
 
