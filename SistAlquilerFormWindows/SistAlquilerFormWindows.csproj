@@ -54,26 +54,26 @@
     <Compile Include="DAO\RentDAO.cs" />
     <Compile Include="DAO\WashingMachineDAO.cs" />
     <Compile Include="Factory\CarFactory.cs" />
-    <Compile Include="Factory\IProductFactory.cs" />
+    <Compile Include="Interfaces\IProductFactory.cs" />
     <Compile Include="Factory\WashingMachineFactory.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Views\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
+    <Compile Include="Views\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Inicio.cs">
+    <Compile Include="Views\Inicio.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Inicio.Designer.cs">
+    <Compile Include="Views\Inicio.Designer.cs">
       <DependentUpon>Inicio.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Car.cs" />
-    <Compile Include="Models\Interfaces\IPriceStrategy.cs" />
-    <Compile Include="Models\Interfaces\RentableProduct.cs" />
-    <Compile Include="Models\PriceStrategy\PriceFixedStrategy.cs" />
-    <Compile Include="Models\PriceStrategy\PriceMonthStrategy.cs" />
-    <Compile Include="Models\PriceStrategy\PriceStrategy.cs" />
+    <Compile Include="Interfaces\IPriceStrategy.cs" />
+    <Compile Include="Models\RentableProduct.cs" />
+    <Compile Include="Strategy\PriceFixedStrategy.cs" />
+    <Compile Include="Strategy\PriceMonthStrategy.cs" />
+    <Compile Include="Strategy\PriceStrategy.cs" />
     <Compile Include="Models\RentCar.cs" />
     <Compile Include="Models\RentWashingMachine.cs" />
     <Compile Include="Models\WashingMachine.cs" />
@@ -95,10 +95,10 @@
     <Compile Include="Views\CreateWashingMachine.Designer.cs">
       <DependentUpon>CreateWashingMachine.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Form1.resx">
+    <EmbeddedResource Include="Views\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Inicio.resx">
+    <EmbeddedResource Include="Views\Inicio.resx">
       <DependentUpon>Inicio.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
