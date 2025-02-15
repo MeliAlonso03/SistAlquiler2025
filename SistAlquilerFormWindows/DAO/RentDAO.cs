@@ -20,7 +20,7 @@ namespace SistAlquilerFormWindows.DAO
 
         public RentableProduct ObtenerRentaPorId(int rentId)
         {
-            return rentas.FirstOrDefault(r => r.Id == rentId);
+            return rents.FirstOrDefault(r => r.Id == rentId);
         }
 
         public void ActualizarRenta(RentableProduct renta)
@@ -28,7 +28,7 @@ namespace SistAlquilerFormWindows.DAO
             var rentaExistente = ObtenerRentaPorId(renta.Id);
             if (rentaExistente != null)
             {
-                rentaExistente.ActualizarDatos(renta.DateTimeStart, renta.EndDateTime, renta.PrecioxHora);
+                rentaExistente.ActualizarDatos(renta.DateTimeStart, renta.EndDateTime, renta.PrecioxHora, renta.Name);
             }
         }
 

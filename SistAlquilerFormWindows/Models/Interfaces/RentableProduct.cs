@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SistAlquilerFormWindows.Models.PriceStrategy;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,17 +21,17 @@ namespace SistAlquilerFormWindows.Models.Interfaces
         public DateTime EndDateTime { get; set; }
         public decimal PrecioxHora { get;  set; }
         public decimal Precio { get; set; }
-        public IPriceStrategy PriceStrategy { get; set; }
+        public IPriceStrategy _PriceStrategy { get; set; }
+        public PriceStrategySelector _PriceStrategySelector = new PriceStrategySelector();
 
         // Constructor que asigna un ID único automáticamente
-        protected RentableProduct(string name, DateTime dateTimeStart, DateTime endDateTime, decimal precioxHora, IPriceStrategy priceStrategy)
+        protected RentableProduct(string name, DateTime dateTimeStart, DateTime endDateTime, decimal precioxHora)
         {
             Id = _nextId++; // Asigna el ID y luego incrementa el contador
             Name = name;
             DateTimeStart = dateTimeStart;
             EndDateTime = endDateTime;
             PrecioxHora = precioxHora;
-            PriceStrategy = priceStrategy;
         }
 
         // Métodos abstractos (deben ser implementados en las subclases)
@@ -39,15 +40,14 @@ namespace SistAlquilerFormWindows.Models.Interfaces
         public abstract string GetDetails();
 
         // New method to update rental data
-        public virtual void ActualizarDatos(DateTime newStart, DateTime newFinish, decimal newPrice)
+        public virtual void ActualizarDatos(DateTime newStart, DateTime newFinish, decimal newPrice, string newName)
         {
             DateTimeStart = newStart;
             EndDateTime = newFinish;
-            Precio = newPrice;
+            PrecioxHora = newPrice;
+            Name = newName;
 
-            // Recalculate the hourly price based on the new total price and duration
-            TimeSpan duration = EndDateTime - DateTimeStart;
-            PrecioxHora = duration.TotalHours > 0 ? Precio / (decimal)duration.TotalHours : 0;
+            CalcularPrecioAlquiler();
         }
     }
 }

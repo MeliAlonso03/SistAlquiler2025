@@ -73,6 +73,7 @@
     <Compile Include="Models\Interfaces\RentableProduct.cs" />
     <Compile Include="Models\PriceStrategy\PriceFixedStrategy.cs" />
     <Compile Include="Models\PriceStrategy\PriceMonthStrategy.cs" />
+    <Compile Include="Models\PriceStrategy\PriceStrategy.cs" />
     <Compile Include="Models\RentCar.cs" />
     <Compile Include="Models\RentWashingMachine.cs" />
     <Compile Include="Models\WashingMachine.cs" />

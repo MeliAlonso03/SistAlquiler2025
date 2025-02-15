@@ -228,16 +228,19 @@
             // 
             // clUser
             // 
+            this.clUser.DisplayIndex = 1;
             this.clUser.Text = "Usuario";
-            this.clUser.Width = 90;
+            this.clUser.Width = 101;
             // 
             // clObjeto
             // 
+            this.clObjeto.DisplayIndex = 2;
             this.clObjeto.Text = "Objeto";
             this.clObjeto.Width = 122;
             // 
             // clPrice
             // 
+            this.clPrice.DisplayIndex = 3;
             this.clPrice.Text = "Precio";
             this.clPrice.Width = 113;
             // 
@@ -256,6 +259,7 @@
             // 
             // clIDrent
             // 
+            this.clIDrent.DisplayIndex = 0;
             this.clIDrent.Text = "ID";
             // 
             // btnMostrarDatos
