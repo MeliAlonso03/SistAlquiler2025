@@ -15,12 +15,12 @@ namespace SistAlquilerFormWindows.Models.Interfaces
         public int Id { get; }
 
         // Otras propiedades
-        public string Name { get; protected set; }
-        public DateTime DateTimeStart { get; protected set; }
-        public DateTime EndDateTime { get; protected set; }
-        public decimal PrecioxHora { get; protected set; }
-        public decimal Precio { get; protected set; }
-        public IPriceStrategy PriceStrategy { get; protected set; }
+        public string Name { get;  set; }
+        public DateTime DateTimeStart { get;  set; }
+        public DateTime EndDateTime { get; set; }
+        public decimal PrecioxHora { get;  set; }
+        public decimal Precio { get; set; }
+        public IPriceStrategy PriceStrategy { get; set; }
 
         // Constructor que asigna un ID único automáticamente
         protected RentableProduct(string name, DateTime dateTimeStart, DateTime endDateTime, decimal precioxHora, IPriceStrategy priceStrategy)
@@ -37,5 +37,17 @@ namespace SistAlquilerFormWindows.Models.Interfaces
         public abstract decimal CalcularPrecioAlquiler();
         public abstract void Rent();
         public abstract string GetDetails();
+
+        // New method to update rental data
+        public virtual void ActualizarDatos(DateTime newStart, DateTime newFinish, decimal newPrice)
+        {
+            DateTimeStart = newStart;
+            EndDateTime = newFinish;
+            Precio = newPrice;
+
+            // Recalculate the hourly price based on the new total price and duration
+            TimeSpan duration = EndDateTime - DateTimeStart;
+            PrecioxHora = duration.TotalHours > 0 ? Precio / (decimal)duration.TotalHours : 0;
+        }
     }
 }

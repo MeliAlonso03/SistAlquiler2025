@@ -1,4 +1,5 @@
-﻿using SistAlquilerFormWindows.Factory;
+﻿using SistAlquilerFormWindows.DAO;
+using SistAlquilerFormWindows.Factory;
 using SistAlquilerFormWindows.Models;
 using SistAlquilerFormWindows.Models.Interfaces;
 using SistAlquilerFormWindows.Models.PriceStrategy;

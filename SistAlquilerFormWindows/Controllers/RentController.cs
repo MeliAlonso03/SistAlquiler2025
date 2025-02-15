@@ -53,5 +53,14 @@ namespace SistAlquilerFormWindows.Controllers
         {
             return rentService.GetAllRent();
         }
+        public void ModificarRenta(int rentId, DateTime newStart, DateTime newFinish, decimal newPrice)
+        {
+            rentService.ActualizarRenta(rentId, newStart, newFinish, newPrice);
+        }
+
+        public void BorrarRenta(int rentId)
+        {
+            rentService.EliminarRenta(rentId);
+        }
     }
 }

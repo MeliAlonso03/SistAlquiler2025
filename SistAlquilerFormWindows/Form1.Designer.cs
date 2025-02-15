@@ -48,6 +48,9 @@
             this.clUser = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clObjeto = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clPrice = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnEditRent = new System.Windows.Forms.Button();
+            this.clIDrent = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnMostrarDatos = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtPriceXHora
@@ -213,7 +216,8 @@
             this.lVRent.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.clUser,
             this.clObjeto,
-            this.clPrice});
+            this.clPrice,
+            this.clIDrent});
             this.lVRent.HideSelection = false;
             this.lVRent.Location = new System.Drawing.Point(373, 83);
             this.lVRent.Name = "lVRent";
@@ -237,11 +241,43 @@
             this.clPrice.Text = "Precio";
             this.clPrice.Width = 113;
             // 
+            // btnEditRent
+            // 
+            this.btnEditRent.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.btnEditRent.Font = new System.Drawing.Font("Consolas", 15F);
+            this.btnEditRent.Location = new System.Drawing.Point(251, 382);
+            this.btnEditRent.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnEditRent.Name = "btnEditRent";
+            this.btnEditRent.Size = new System.Drawing.Size(123, 46);
+            this.btnEditRent.TabIndex = 29;
+            this.btnEditRent.Text = "Update";
+            this.btnEditRent.UseVisualStyleBackColor = false;
+            this.btnEditRent.Click += new System.EventHandler(this.btnEditRent_Click);
+            // 
+            // clIDrent
+            // 
+            this.clIDrent.Text = "ID";
+            // 
+            // btnMostrarDatos
+            // 
+            this.btnMostrarDatos.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.btnMostrarDatos.Font = new System.Drawing.Font("Consolas", 15F);
+            this.btnMostrarDatos.Location = new System.Drawing.Point(475, 345);
+            this.btnMostrarDatos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnMostrarDatos.Name = "btnMostrarDatos";
+            this.btnMostrarDatos.Size = new System.Drawing.Size(67, 40);
+            this.btnMostrarDatos.TabIndex = 30;
+            this.btnMostrarDatos.Text = "ver";
+            this.btnMostrarDatos.UseVisualStyleBackColor = false;
+            this.btnMostrarDatos.Click += new System.EventHandler(this.btnMostrarDatos_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnMostrarDatos);
+            this.Controls.Add(this.btnEditRent);
             this.Controls.Add(this.lVRent);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.label3);
@@ -288,6 +324,9 @@
         private System.Windows.Forms.ColumnHeader clUser;
         private System.Windows.Forms.ColumnHeader clObjeto;
         private System.Windows.Forms.ColumnHeader clPrice;
+        private System.Windows.Forms.Button btnEditRent;
+        private System.Windows.Forms.ColumnHeader clIDrent;
+        private System.Windows.Forms.Button btnMostrarDatos;
     }
 }
 

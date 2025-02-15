@@ -16,6 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace SistAlquilerFormWindows
 {
@@ -33,7 +34,6 @@ namespace SistAlquilerFormWindows
         private Form1()
         {
             InitializeComponent();
-            InitializeFactories();
             InitializeComboBox();
             UpdateCarComboBox();
             UpdateWashingComboBox();
@@ -53,14 +53,6 @@ namespace SistAlquilerFormWindows
             cmbProductType.SelectedIndex = 0;
         }
 
-        private void InitializeFactories()
-        {
-            factories = new Dictionary<string, IProductFactory>
-            {
-                { "Car", new CarFactory() },
-                { "Washing Machine", new WashingMachineFactory() }
-            };
-        }
 
         private void btnAddProduct_Click(object sender, EventArgs e)
         {
@@ -112,7 +104,6 @@ namespace SistAlquilerFormWindows
             if (product != null)
             {
                 rentController.AddRent(product);
-                //products.Add(product);
                 UpdateProductList();
                 ClearInputs();
             }
@@ -174,6 +165,7 @@ namespace SistAlquilerFormWindows
                 ListViewItem item = new ListViewItem(rent.Name); 
                 item.SubItems.Add(rent.ToString()); 
                 item.SubItems.Add(rent.CalcularPrecioAlquiler().ToString());
+                item.SubItems.Add(rent.Id.ToString());
                 // Agregar el elemento al ListView
                 lVRent.Items.Add(item);
             }
@@ -238,6 +230,45 @@ namespace SistAlquilerFormWindows
         private void lstProducts_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnEditRent_Click(object sender, EventArgs e)
+        {
+            if (lVRent.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Seleccione una renta para editar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            string productType = cmbProductType.Text;
+            string name = txtName.Text;
+            DateTime startDate = dateTimeStart.Value;
+            DateTime finishDate = dateTimeFinish.Value;
+
+            ListViewItem selectedItem = lVRent.SelectedItems[0];
+            int rentId = Convert.ToInt32(selectedItem.Tag);
+
+            if (!ValidateInput(out decimal pricePerHour)) return;
+
+            rentController.ModificarRenta(rentId, startDate, finishDate, pricePerHour);
+            UpdateProductList();
+        }
+
+        private void btnMostrarDatos_Click(object sender, EventArgs e)
+        {
+            if (lVRent.SelectedItems.Count> 0 )
+            {
+                ListViewItem selectedItem = lVRent.SelectedItems[0];
+                ShowItemDetails(selectedItem);
+            }
+            else
+            {
+                MessageBox.Show("No hay ningún artículo seleccionado.");
+            }
+        }
+
+        private void ShowItemDetails(ListViewItem selectedItem)
+        {
+            txtName.Text = selectedItem.SubItems[0].Text;
         }
     }
 }

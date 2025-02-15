@@ -25,5 +25,18 @@ namespace SistAlquilerFormWindows.Services
         {
             return _RentDAO.rents;
         }
+        public void ActualizarRenta(int rentId, DateTime newStart, DateTime newFinish, decimal newPrice)
+        {
+            var renta = _RentDAO.ObtenerRentaPorId(rentId);
+            if (renta == null) throw new InvalidOperationException("Renta no encontrada.");
+
+            renta.ActualizarDatos(newStart, newFinish, newPrice);
+            _RentDAO.ActualizarRenta(renta);
+        }
+
+        public void EliminarRenta(int rentId)
+        {
+            _RentDAO.EliminarRenta(rentId);
+        }
     }
 }
