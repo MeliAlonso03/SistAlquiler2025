@@ -43,5 +43,19 @@ namespace SistAlquilerFormWindows.Controllers
         {
             return washingService.GetAllWashingMachine();
         }
+        public void ModificarLavarropa(int washingMachineId, string newBrand, string newModel, string newUniqueID)
+        {
+            washingService.ActualizarWashingMachine(washingMachineId, newBrand, newModel, newUniqueID);
+        }
+
+        public void BorrarLavarropa(int washingMachineId)
+        {
+            washingService.EliminarLavarropa(washingMachineId);
+        }
+
+        internal WashingMachine BuscarLavarropa(int washingMachineId)
+        {
+            return washingService.BuscarLavarropa(washingMachineId);
+        }
     }
 }

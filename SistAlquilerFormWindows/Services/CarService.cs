@@ -1,5 +1,6 @@
 ﻿using SistAlquilerFormWindows.DAO;
 using SistAlquilerFormWindows.Models;
+using SistAlquilerFormWindows.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,25 @@ namespace SistAlquilerFormWindows.Services
         internal List<Car> GetAllCars()
         {
             return carsDAO.cars;
+        }
+        public void ActualizarAuto(int autoId, string newLicense, string newModel)
+        {
+            var auto = carsDAO.ObtenerAutoPorId(autoId);
+            if (auto == null) return;
+
+            auto.ActualizarDatos(newLicense, newModel);
+            carsDAO.ActualizarAuto(auto);
+        }
+
+        public void EliminarAuto(int autoId)
+        {
+            carsDAO.EliminarAuto(autoId);
+        }
+
+        internal Car BuscarAuto(int autoID)
+        {
+            Car auto = carsDAO.ObtenerAutoPorId(autoID); 
+            return auto;
         }
     }
 }

@@ -25,22 +25,16 @@ namespace SistAlquilerFormWindows.Views
             InitializeComponent();
             _form1 = form1;
             _inicio = inicio;
-            // Obtiene la instancia única del controlador
             _carController = CarController.Instance;
         }
 
         private void btnAddCar_Click(object sender, EventArgs e)
         {
+            if (!ValidateInput()) return;
             string model = txtModelCar.Text;
             string licencePlate = txtLicencePlate.Text;
 
-            if (string.IsNullOrWhiteSpace(model) || string.IsNullOrWhiteSpace(licencePlate))
-            {
-                MessageBox.Show("Both model and licence plate are required.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return; 
-            }
-
-            _carController.AddCar(licencePlate, model); // Usa la instancia del campo global
+            _carController.AddCar(licencePlate, model);
             UpdateProductList();
             ClearInputs();
             _form1.UpdateCarComboBox();
@@ -56,6 +50,7 @@ namespace SistAlquilerFormWindows.Views
             {
                 ListViewItem item = new ListViewItem(car.LicensePlate);
                 item.SubItems.Add(car.Model);
+                item.Tag = car.Id;
                 lvCar.Items.Add(item);
             }
         }
@@ -70,6 +65,81 @@ namespace SistAlquilerFormWindows.Views
         {
             this.Hide(); 
             _inicio.Show();
+        }
+
+        private void btnUpdateCar_Click(object sender, EventArgs e)
+        {
+            int carId = SelectedItem();
+            string model = txtModelCar.Text;
+            string licensePlate = txtLicencePlate.Text;
+            if (!ValidateInput()) return;
+            _carController.ModificarAuto(carId, licensePlate, model);
+            UpdateProductList();
+        }
+
+        private void btnDeleteCar_Click(object sender, EventArgs e)
+        {
+            int carId = SelectedItem();
+            _carController.BorrarAuto(carId);
+            UpdateProductList();
+        }
+        private int SelectedItem()
+        {
+            if (lvCar.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Seleccione un auto para editar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return 0;
+            }
+
+            ListViewItem selectedItem = lvCar.SelectedItems[0];
+            int carId = Convert.ToInt32(selectedItem.Tag);
+            return carId;
+        }
+        private bool ValidateInput()
+        {
+            if (!ValidateLicensePlate() ||
+                !ValidateModel())
+            {
+                return false;
+            }
+
+            return true;
+        }
+        private bool ValidateLicensePlate()
+        {
+            if (string.IsNullOrWhiteSpace(txtLicencePlate.Text))
+            {
+                ShowErrorMessage("Please enter a valid License Plate for the product.");
+                return false;
+            }
+            return true;
+        }
+        private bool ValidateModel()
+        {
+            if (string.IsNullOrWhiteSpace(txtModelCar.Text))
+            {
+                ShowErrorMessage("Please enter a valid Model for the product.");
+                return false;
+            }
+            return true;
+        }
+        private void ShowErrorMessage(string message)
+        {
+            MessageBox.Show(message);
+        }
+
+        private void btnVerDatos_Click(object sender, EventArgs e)
+        {
+            int carID = SelectedItem();
+            Car car = _carController.BuscarAuto(carID);
+            if (car == null) return;
+            ShowItemDetails(car);
+        }
+
+        private void ShowItemDetails(Car car)
+        {
+            txtLicencePlate.Text = car.LicensePlate;
+            txtModelCar.Text = car.Model;
         }
     }
 }

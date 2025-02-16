@@ -319,15 +319,6 @@ namespace SistAlquilerFormWindows
             this.Hide();
         }
 
-        private void cmbCar_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lstProducts_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void btnEditRent_Click(object sender, EventArgs e)
         {

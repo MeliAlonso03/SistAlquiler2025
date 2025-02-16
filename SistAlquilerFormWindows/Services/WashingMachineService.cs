@@ -25,5 +25,24 @@ namespace SistAlquilerFormWindows.Services
         {
             return _washingDAO.washingMachines;
         }
+        public void ActualizarWashingMachine(int washingMachineId, string newBrand, string newModel, string newUniqueId)
+        {
+            var washingMachine = _washingDAO.ObtenerLavarropaPorId(washingMachineId);
+            if (washingMachine == null) return;
+
+            washingMachine.ActualizarDatos(newBrand, newModel, newUniqueId);
+            _washingDAO.ActualizarLavarropa(washingMachine);
+        }
+
+        public void EliminarLavarropa(int washingMachineId)
+        {
+            _washingDAO.EliminarLavarropa(washingMachineId);
+        }
+
+        internal WashingMachine BuscarLavarropa(int washingMachineID)
+        {
+            WashingMachine lavarropa = _washingDAO.ObtenerLavarropaPorId(washingMachineID);
+            return lavarropa;
+        }
     }
 }

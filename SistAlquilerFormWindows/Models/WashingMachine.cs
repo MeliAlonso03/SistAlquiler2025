@@ -9,6 +9,8 @@ namespace SistAlquilerFormWindows.Models
 {
     public class WashingMachine
     {
+        private static int _nextId = 1;
+        public int Id { get; }
         public string Brand { get; private set; }
         public string Model { get; private set; }
         public string UniqueId { get; private set; }
@@ -17,6 +19,7 @@ namespace SistAlquilerFormWindows.Models
 
         public WashingMachine( string brand, string model, string uniqueId)
         {
+            Id = _nextId++;
             Brand = brand;
             Model = model;
             UniqueId = uniqueId;
@@ -35,6 +38,12 @@ namespace SistAlquilerFormWindows.Models
 
             RentalPeriods.Add((start, end));
             Available = false;
+        }
+        public virtual void ActualizarDatos(string newBrand, string newModel, string newUniqueId)
+        {
+            Brand = newBrand;
+            Model = newModel;
+            UniqueId = newUniqueId;
         }
         public override string ToString()
         {

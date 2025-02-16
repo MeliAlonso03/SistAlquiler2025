@@ -41,6 +41,9 @@
             this.clMarca = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clModelo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnUpdateWashingMachine = new System.Windows.Forms.Button();
+            this.btnEliminarWashingMachine = new System.Windows.Forms.Button();
+            this.btnVerDatos = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblBrand
@@ -98,7 +101,7 @@
             // 
             this.btnAddWashingMachine.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.btnAddWashingMachine.Font = new System.Drawing.Font("Consolas", 15F);
-            this.btnAddWashingMachine.Location = new System.Drawing.Point(140, 324);
+            this.btnAddWashingMachine.Location = new System.Drawing.Point(152, 291);
             this.btnAddWashingMachine.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnAddWashingMachine.Name = "btnAddWashingMachine";
             this.btnAddWashingMachine.Size = new System.Drawing.Size(177, 70);
@@ -123,7 +126,7 @@
             this.btnBack.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.btnBack.Font = new System.Drawing.Font("Consolas", 15F);
             this.btnBack.Location = new System.Drawing.Point(589, 400);
-            this.btnBack.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnBack.Margin = new System.Windows.Forms.Padding(4);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(129, 38);
             this.btnBack.TabIndex = 9;
@@ -160,11 +163,53 @@
             this.clID.Text = "ID";
             this.clID.Width = 82;
             // 
+            // btnUpdateWashingMachine
+            // 
+            this.btnUpdateWashingMachine.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.btnUpdateWashingMachine.Font = new System.Drawing.Font("Consolas", 15F);
+            this.btnUpdateWashingMachine.Location = new System.Drawing.Point(95, 399);
+            this.btnUpdateWashingMachine.Margin = new System.Windows.Forms.Padding(4);
+            this.btnUpdateWashingMachine.Name = "btnUpdateWashingMachine";
+            this.btnUpdateWashingMachine.Size = new System.Drawing.Size(129, 38);
+            this.btnUpdateWashingMachine.TabIndex = 11;
+            this.btnUpdateWashingMachine.Text = "Update";
+            this.btnUpdateWashingMachine.UseVisualStyleBackColor = false;
+            this.btnUpdateWashingMachine.Click += new System.EventHandler(this.btnUpdateWashingMachine_Click);
+            // 
+            // btnEliminarWashingMachine
+            // 
+            this.btnEliminarWashingMachine.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.btnEliminarWashingMachine.Font = new System.Drawing.Font("Consolas", 15F);
+            this.btnEliminarWashingMachine.Location = new System.Drawing.Point(241, 399);
+            this.btnEliminarWashingMachine.Margin = new System.Windows.Forms.Padding(4);
+            this.btnEliminarWashingMachine.Name = "btnEliminarWashingMachine";
+            this.btnEliminarWashingMachine.Size = new System.Drawing.Size(129, 38);
+            this.btnEliminarWashingMachine.TabIndex = 12;
+            this.btnEliminarWashingMachine.Text = "Delete";
+            this.btnEliminarWashingMachine.UseVisualStyleBackColor = false;
+            this.btnEliminarWashingMachine.Click += new System.EventHandler(this.btnEliminarWashingMachine_Click);
+            // 
+            // btnVerDatos
+            // 
+            this.btnVerDatos.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.btnVerDatos.Font = new System.Drawing.Font("Consolas", 15F);
+            this.btnVerDatos.Location = new System.Drawing.Point(409, 358);
+            this.btnVerDatos.Margin = new System.Windows.Forms.Padding(4);
+            this.btnVerDatos.Name = "btnVerDatos";
+            this.btnVerDatos.Size = new System.Drawing.Size(129, 38);
+            this.btnVerDatos.TabIndex = 13;
+            this.btnVerDatos.Text = "Ver Datos";
+            this.btnVerDatos.UseVisualStyleBackColor = false;
+            this.btnVerDatos.Click += new System.EventHandler(this.btnVerDatos_Click);
+            // 
             // CreateWashingMachine
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnVerDatos);
+            this.Controls.Add(this.btnEliminarWashingMachine);
+            this.Controls.Add(this.btnUpdateWashingMachine);
             this.Controls.Add(this.lvWashing);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.label1);
@@ -198,5 +243,8 @@
         private System.Windows.Forms.ColumnHeader clMarca;
         private System.Windows.Forms.ColumnHeader clModelo;
         private System.Windows.Forms.ColumnHeader clID;
+        private System.Windows.Forms.Button btnUpdateWashingMachine;
+        private System.Windows.Forms.Button btnEliminarWashingMachine;
+        private System.Windows.Forms.Button btnVerDatos;
     }
 }

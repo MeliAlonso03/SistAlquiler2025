@@ -1,4 +1,5 @@
 ﻿using SistAlquilerFormWindows.Models;
+using SistAlquilerFormWindows.Models.Interfaces;
 using SistAlquilerFormWindows.Services;
 using System;
 using System.Collections.Generic;
@@ -53,6 +54,20 @@ namespace SistAlquilerFormWindows.Controllers
         public List<Car> GetAllCars()
         {
             return carService.GetAllCars();
+        }
+        public void ModificarAuto(int autoId, string newLicensePlate, string newModel)
+        {
+            carService.ActualizarAuto(autoId, newLicensePlate, newModel);
+        }
+
+        public void BorrarAuto(int autoID)
+        {
+            carService.EliminarAuto(autoID);
+        }
+
+        internal Car BuscarAuto(int autoID)
+        {
+            return carService.BuscarAuto(autoID);
         }
     }
 

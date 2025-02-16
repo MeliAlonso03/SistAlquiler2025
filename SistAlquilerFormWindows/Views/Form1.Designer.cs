@@ -128,7 +128,6 @@
             this.cmbCar.Name = "cmbCar";
             this.cmbCar.Size = new System.Drawing.Size(121, 24);
             this.cmbCar.TabIndex = 18;
-            this.cmbCar.SelectedIndexChanged += new System.EventHandler(this.cmbCar_SelectedIndexChanged);
             // 
             // cmbWashing
             // 
