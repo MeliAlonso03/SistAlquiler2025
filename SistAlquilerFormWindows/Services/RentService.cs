@@ -20,7 +20,7 @@ namespace SistAlquilerFormWindows.Services
         }
         public RentableProduct AddRent(RentableProduct product)
         {
-            _RentDAO.rents.Add(product);
+            _RentDAO.GuardarRenta(product);
             return product;
         }
 
