@@ -51,7 +51,6 @@ namespace SistAlquilerFormWindows.Services
                 case RentWashingMachine _rentWashingMachine:
                     _rentWashingMachine.Washing.CancelRent(renta.DateTimeStart, renta.EndDateTime);
                     break;
-
             }
 
             _RentDAO.EliminarRenta(rentId);

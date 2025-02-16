@@ -19,7 +19,9 @@ namespace SistAlquilerFormWindows.Models.PriceStrategy
         }
         public decimal CalcularPrecio(int horas)
         {
-            return _precioPorHora * horas + 5;
+            decimal precioTotal = _precioPorHora * horas;
+            precioTotal -= precioTotal * 0.10m;
+            return precioTotal;
         }
     }
 }

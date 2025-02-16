@@ -322,11 +322,19 @@ namespace SistAlquilerFormWindows
 
         private void btnEditRent_Click(object sender, EventArgs e)
         {
-            string productType = cmbProductType.Text;
+            int rentId = SelectedItem();
+            if (rentId == 0) return;
+
+            var renta = rentController.BuscarRenta(rentId);
+            if (renta == null)
+            {
+                MessageBox.Show("La renta seleccionada no existe.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             string name = txtName.Text;
             DateTime startDate = dateTimeStart.Value;
             DateTime finishDate = dateTimeFinish.Value;
-            int rentId = SelectedItem();
 
             if (!ValidateInput(out decimal pricePerHour)) return;
 
@@ -364,6 +372,7 @@ namespace SistAlquilerFormWindows
         private void btnDelete_Click(object sender, EventArgs e)
         {
             int rentId = SelectedItem();
+            if (rentId == 0) return;
             rentController.BorrarRenta(rentId);
             UpdateProductList();
         }
