@@ -27,7 +27,7 @@ namespace SistAlquilerFormWindows.Services
 
         internal List<RentableProduct> GetAllRent()
         {
-            return _RentDAO.rents;
+            return _RentDAO.rents.ToList();
         }
         public void ActualizarRenta(int rentId, DateTime newStart, DateTime newFinish, decimal newPrice, string newName)
         {
@@ -40,6 +40,20 @@ namespace SistAlquilerFormWindows.Services
 
         public void EliminarRenta(int rentId)
         {
+            var renta = _RentDAO.ObtenerRentaPorId(rentId);
+            if (renta == null) throw new InvalidOperationException("Renta no encontrada.");
+
+            switch (renta)
+            {
+                case RentCar _rentCar:
+                    _rentCar.Car.CancelRent(renta.DateTimeStart, renta.EndDateTime);
+                    break;
+                case RentWashingMachine _rentWashingMachine:
+                    _rentWashingMachine.Washing.CancelRent(renta.DateTimeStart, renta.EndDateTime);
+                    break;
+
+            }
+
             _RentDAO.EliminarRenta(rentId);
         }
 

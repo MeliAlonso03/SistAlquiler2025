@@ -27,6 +27,9 @@ namespace SistAlquilerFormWindows.Models
         // Método para verificar disponibilidad en un rango de fechas
         public bool IsAvailable(DateTime start, DateTime end)
         {
+            if (!RentalPeriods.Any()) // Si no hay rentas, está disponible
+                return true;
+
             return !RentalPeriods.Any(r => (start < r.End) && (end > r.Start));
         }
 
@@ -39,6 +42,16 @@ namespace SistAlquilerFormWindows.Models
             RentalPeriods.Add((start, end));
             Available = false;
         }
+        public void CancelRent(DateTime start, DateTime end)
+        {
+            RentalPeriods.RemoveAll(r => r.Start == start && r.End == end);
+
+            // Si no hay más períodos de renta, marcar el auto como disponible
+            if (!RentalPeriods.Any())
+            {
+                Available = true;
+            }
+        }
         public virtual void ActualizarDatos(string newBrand, string newModel, string newUniqueId)
         {
             Brand = newBrand;
@@ -47,7 +60,7 @@ namespace SistAlquilerFormWindows.Models
         }
         public override string ToString()
         {
-            return Brand+ "Model: " +Model+ "UniqueId: " +UniqueId;
+            return Brand+ "  " +Model+ "  " +UniqueId;
         }
 
 

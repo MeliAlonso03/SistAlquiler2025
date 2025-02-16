@@ -322,39 +322,35 @@ namespace SistAlquilerFormWindows
 
         private void btnEditRent_Click(object sender, EventArgs e)
         {
-            if (lVRent.SelectedItems.Count == 0)
-            {
-                MessageBox.Show("Seleccione una renta para editar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
             string productType = cmbProductType.Text;
             string name = txtName.Text;
             DateTime startDate = dateTimeStart.Value;
             DateTime finishDate = dateTimeFinish.Value;
-
-            ListViewItem selectedItem = lVRent.SelectedItems[0];
-            int rentId = Convert.ToInt32(selectedItem.Tag);
+            int rentId = SelectedItem();
 
             if (!ValidateInput(out decimal pricePerHour)) return;
 
             rentController.ModificarRenta(rentId, startDate, finishDate, pricePerHour, name);
             UpdateProductList();
         }
+        private int SelectedItem()
+        {
+            if (lVRent.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Seleccione una Renta para editar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return 0;
+            }
+
+            ListViewItem selectedItem = lVRent.SelectedItems[0];
+            int rentId = Convert.ToInt32(selectedItem.Tag);
+            return rentId;
+        }
 
         private void btnMostrarDatos_Click(object sender, EventArgs e)
         {
-            if (lVRent.SelectedItems.Count> 0 )
-            {
-                ListViewItem selectedItem = lVRent.SelectedItems[0];
-                int rentID = Convert.ToInt32(selectedItem.Tag);
-
-                RentableProduct renta = rentController.BuscarRenta(rentID);
-                ShowItemDetails(renta);
-            }
-            else
-            {
-                MessageBox.Show("No hay ningún artículo seleccionado.");
-            }
+            int rentId = SelectedItem();
+            RentableProduct renta = rentController.BuscarRenta(rentId);
+            ShowItemDetails(renta);
         }
 
         private void ShowItemDetails(RentableProduct renta)
@@ -367,13 +363,7 @@ namespace SistAlquilerFormWindows
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (lVRent.SelectedItems.Count == 0)
-            {
-                MessageBox.Show("Seleccione una renta para editar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            ListViewItem selectedItem = lVRent.SelectedItems[0];
-            int rentId = Convert.ToInt32(selectedItem.Tag);
+            int rentId = SelectedItem();
             rentController.BorrarRenta(rentId);
             UpdateProductList();
         }

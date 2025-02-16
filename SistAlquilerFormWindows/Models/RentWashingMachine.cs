@@ -24,10 +24,8 @@ namespace SistAlquilerFormWindows.Models
         public override void Rent()
         {
             if (!Washing.IsAvailable(DateTimeStart, EndDateTime))
-            {
-                MessageBox.Show("El Lavarropas no está disponible en las fechas seleccionadas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+                throw new InvalidOperationException("El auto no está disponible en las fechas seleccionadas.");
+
             Washing.Rent(DateTimeStart, EndDateTime);
 
         }
@@ -47,7 +45,7 @@ namespace SistAlquilerFormWindows.Models
 
         public override string ToString()
         {
-            return $"{Washing}";
+            return $"Lavarropa{Washing}";
         }
     }
 

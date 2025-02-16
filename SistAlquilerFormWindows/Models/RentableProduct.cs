@@ -34,12 +34,10 @@ namespace SistAlquilerFormWindows.Models.Interfaces
             PrecioxHora = precioxHora;
         }
 
-        // Métodos abstractos (deben ser implementados en las subclases)
         public abstract decimal CalcularPrecioAlquiler();
         public abstract void Rent();
         public abstract string GetDetails();
 
-        // New method to update rental data
         public virtual void ActualizarDatos(DateTime newStart, DateTime newFinish, decimal newPrice, string newName)
         {
             DateTimeStart = newStart;

@@ -24,10 +24,7 @@ namespace SistAlquilerFormWindows.Models
         public override void Rent()
         {
             if (!Car.IsAvailable(DateTimeStart, EndDateTime))
-            {
-                MessageBox.Show("El auto no está disponible en las fechas seleccionadas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+                throw new InvalidOperationException("El auto no está disponible en las fechas seleccionadas.");
 
             Car.Rent(DateTimeStart, EndDateTime);
         }
@@ -47,7 +44,7 @@ namespace SistAlquilerFormWindows.Models
 
         public override string ToString()
         {
-            return $"[ID {Id}] {Car}";
+            return $"Auto: {Car}";
         }
     }
 }
