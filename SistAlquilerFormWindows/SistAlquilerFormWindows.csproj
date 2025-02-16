@@ -56,6 +56,7 @@
     <Compile Include="Factory\CarFactory.cs" />
     <Compile Include="Interfaces\IProductFactory.cs" />
     <Compile Include="Factory\WashingMachineFactory.cs" />
+    <Compile Include="Models\ProductAvailability.cs" />
     <Compile Include="Views\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
