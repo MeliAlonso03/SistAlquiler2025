@@ -48,9 +48,10 @@
             this.clUser = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clObjeto = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clPrice = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.btnEditRent = new System.Windows.Forms.Button();
             this.clIDrent = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnEditRent = new System.Windows.Forms.Button();
             this.btnMostrarDatos = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtPriceXHora
@@ -244,6 +245,11 @@
             this.clPrice.Text = "Precio";
             this.clPrice.Width = 113;
             // 
+            // clIDrent
+            // 
+            this.clIDrent.DisplayIndex = 0;
+            this.clIDrent.Text = "ID";
+            // 
             // btnEditRent
             // 
             this.btnEditRent.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
@@ -257,29 +263,38 @@
             this.btnEditRent.UseVisualStyleBackColor = false;
             this.btnEditRent.Click += new System.EventHandler(this.btnEditRent_Click);
             // 
-            // clIDrent
-            // 
-            this.clIDrent.DisplayIndex = 0;
-            this.clIDrent.Text = "ID";
-            // 
             // btnMostrarDatos
             // 
             this.btnMostrarDatos.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.btnMostrarDatos.Font = new System.Drawing.Font("Consolas", 15F);
-            this.btnMostrarDatos.Location = new System.Drawing.Point(475, 345);
+            this.btnMostrarDatos.Font = new System.Drawing.Font("Consolas", 10F);
+            this.btnMostrarDatos.Location = new System.Drawing.Point(373, 348);
             this.btnMostrarDatos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnMostrarDatos.Name = "btnMostrarDatos";
-            this.btnMostrarDatos.Size = new System.Drawing.Size(67, 40);
+            this.btnMostrarDatos.Size = new System.Drawing.Size(52, 30);
             this.btnMostrarDatos.TabIndex = 30;
             this.btnMostrarDatos.Text = "ver";
             this.btnMostrarDatos.UseVisualStyleBackColor = false;
             this.btnMostrarDatos.Click += new System.EventHandler(this.btnMostrarDatos_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.btnDelete.Font = new System.Drawing.Font("Consolas", 15F);
+            this.btnDelete.Location = new System.Drawing.Point(400, 382);
+            this.btnDelete.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(123, 46);
+            this.btnDelete.TabIndex = 31;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = false;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnMostrarDatos);
             this.Controls.Add(this.btnEditRent);
             this.Controls.Add(this.lVRent);
@@ -331,6 +346,7 @@
         private System.Windows.Forms.Button btnEditRent;
         private System.Windows.Forms.ColumnHeader clIDrent;
         private System.Windows.Forms.Button btnMostrarDatos;
+        private System.Windows.Forms.Button btnDelete;
     }
 }
 

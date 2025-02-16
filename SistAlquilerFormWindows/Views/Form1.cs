@@ -142,9 +142,9 @@ namespace SistAlquilerFormWindows
                 ClearInputs();
             }
         }
-        private RentableProduct CreateProduct(string productType, string name, DateTime startDate, DateTime finishDate, decimal pricePerHour)
+        private RentableProduct CreateProduct(string productType, string name, DateTime startDate, DateTime finishDate, decimal pricePerHoura)
         {
-            var product = GenerateProduct(productType, name, startDate, finishDate, pricePerHour);
+            var product = GenerateProduct(productType, name, startDate, finishDate, pricePerHoura);
 
             if (product == null)
             {
@@ -159,6 +159,8 @@ namespace SistAlquilerFormWindows
             switch (productType)
             {
                 case "Car":
+                    var selectedCar = GetSelectedCar();
+            if (selectedCar == null) return null;
                     return CreateCarProduct(name, startDate, finishDate, pricePerHour);
                 case "Washing Machine":
                     return CreateWashingMachineProduct(name, startDate, finishDate, pricePerHour);
@@ -370,6 +372,19 @@ namespace SistAlquilerFormWindows
             dateTimeStart.Value = renta.DateTimeStart;
             dateTimeFinish.Value = renta.EndDateTime;
             txtPriceXHora.Text = Convert.ToDecimal(renta.PrecioxHora).ToString();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (lVRent.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Seleccione una renta para editar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            ListViewItem selectedItem = lVRent.SelectedItems[0];
+            int rentId = Convert.ToInt32(selectedItem.Tag);
+            rentController.BorrarRenta(rentId);
+            UpdateProductList();
         }
     }
 }

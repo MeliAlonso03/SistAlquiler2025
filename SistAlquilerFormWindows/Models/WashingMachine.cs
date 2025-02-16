@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SistAlquilerFormWindows.Models
 {
-    internal class WashingMachine
+    public class WashingMachine
     {
         public string Brand { get; private set; }
         public string Model { get; private set; }

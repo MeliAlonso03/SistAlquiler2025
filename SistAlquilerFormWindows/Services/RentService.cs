@@ -1,4 +1,5 @@
-﻿using SistAlquilerFormWindows.DAO;
+﻿using SistAlquilerFormWindows.Controllers;
+using SistAlquilerFormWindows.DAO;
 using SistAlquilerFormWindows.Models;
 using SistAlquilerFormWindows.Models.Interfaces;
 using System;
@@ -12,14 +13,17 @@ namespace SistAlquilerFormWindows.Services
     public class RentService
     {
         public RentDAO _RentDAO;
+        public ManagmentFactory _factory = new ManagmentFactory();
         public RentService()
         {
             _RentDAO = new RentDAO();
         }
-        public void AddRent(RentableProduct product)
+        public RentableProduct AddRent(RentableProduct product)
         {
             _RentDAO.rents.Add(product);
+            return product;
         }
+
 
         internal List<RentableProduct> GetAllRent()
         {

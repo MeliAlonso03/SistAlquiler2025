@@ -14,7 +14,7 @@ using System.Xml.Linq;
 
 namespace SistAlquilerFormWindows.Controllers
 {
-    internal class ManagmentFactory
+    public class ManagmentFactory
     {
         private Dictionary<string, IProductFactory> factories;
         RentableProduct product;

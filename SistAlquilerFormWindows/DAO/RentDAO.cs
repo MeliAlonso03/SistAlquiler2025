@@ -11,11 +11,10 @@ namespace SistAlquilerFormWindows.DAO
     public class RentDAO
     {
         public List<RentableProduct> rents = new List<RentableProduct>();
-        private List<RentableProduct> rentas = new List<RentableProduct>();
 
         public void GuardarRenta(RentableProduct renta)
         {
-            rentas.Add(renta);
+            rents.Add(renta);
         }
 
         public RentableProduct ObtenerRentaPorId(int rentId)
@@ -37,7 +36,7 @@ namespace SistAlquilerFormWindows.DAO
             var renta = ObtenerRentaPorId(rentId);
             if (renta != null)
             {
-                rentas.Remove(renta);
+                rents.Remove(renta);
             }
         }
     }

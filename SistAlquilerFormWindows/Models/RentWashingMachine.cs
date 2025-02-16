@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace SistAlquilerFormWindows.Models
 {
-    internal class RentWashingMachine : RentableProduct
+    public class RentWashingMachine : RentableProduct
     {
         public WashingMachine Washing { get; private set; }
 
