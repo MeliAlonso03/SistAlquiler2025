@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SistAlquilerFormWindows.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -49,15 +50,18 @@ namespace SistAlquilerFormWindows.Models
             }
             Console.WriteLine($"Alquiler cancelado: {start} - {end}");
         }
-        public virtual void UpdateRental(DateTime newStart, DateTime newEnd, decimal newPrice)
+        public virtual void UpdateRental(DateTime newStart, DateTime newEnd, decimal newPrice, IRentableObject newProduct)
         {
-            if (!IsAvailable(newStart, newEnd))
+            Console.WriteLine($"Intentando actualizar la renta con un nuevo producto...");
+            CancelRent(newStart, newEnd);
+
+            if (!newProduct.IsAvailable(newStart, newEnd))
             {
-                throw new InvalidOperationException($"No se puede actualizar la renta a estas fechas: {newStart} - {newEnd}.");
+                throw new InvalidOperationException($"El nuevo producto no está disponible en las fechas seleccionadas: {newStart} - {newEnd}.");
             }
-            RentalPeriods.Clear();
-            Rent(newStart, newEnd);
-            Console.WriteLine($"Renta actualizada a {newStart} - {newEnd}, Nuevo Precio: {newPrice}");
+
+            newProduct.Rent(newStart, newEnd);
+            Console.WriteLine($"Renta actualizada a {newStart} - {newEnd} con nuevo producto.");
         }
     }
 }

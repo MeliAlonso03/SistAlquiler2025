@@ -137,9 +137,9 @@ namespace SistAlquilerFormWindows
 
         private bool ValidateDates()
         {
-            if (dateTimeStart.Value  < DateTime.Now)
+            if (dateTimeStart.Value < DateTime.Now)
             {
-                ShowErrorMessage("La fecha ingresada no es valida.");
+                ShowErrorMessage("La fecha ingresada no es válida. Debe ser igual o posterior a la fecha y hora actual.");
                 return false;
             }
             if (dateTimeStart.Value >= dateTimeFinish.Value )
@@ -251,11 +251,19 @@ namespace SistAlquilerFormWindows
         private void btnEditRent_Click(object sender, EventArgs e)
         {
 
+            if (!ValidateInputs(out string name, out DateTime start, out DateTime end, out decimal price))
+                return;
+
+            //IRentableObject newProduct = GetSelectedRentableObject();
+            //if (newProduct == null)
+            //{
+            //    MessageBox.Show("Seleccione un nuevo producto válido", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
+
             try
             {
                 int rentId = SelectedItem();
-                if (!ValidateInputs(out string name, out DateTime start, out DateTime end, out decimal price))
-                    return;
                 _rentController.ModifyRent(rentId, start, end, price, name);
                 UpdateProductList();
             }

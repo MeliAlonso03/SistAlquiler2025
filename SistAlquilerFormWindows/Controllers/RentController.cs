@@ -36,6 +36,18 @@ namespace SistAlquilerFormWindows.Controllers
                 throw;
             }
         }
+        public void ModifyRentWithProduct(int rentId, DateTime newStart, DateTime newEnd, decimal newPrice, IRentableObject newProduct)
+        {
+            try
+            {
+                _rentService.UpdateRentWithProduct(rentId, newStart, newEnd, newPrice, newProduct);
+            }
+            catch (InvalidOperationException ex)
+            {
+                Console.WriteLine($"Error al modificar renta: {ex.Message}");
+                throw;
+            }
+        }
         public void DeleteRent(int rentId) => _rentService.DeleteRent(rentId);
     }
 }

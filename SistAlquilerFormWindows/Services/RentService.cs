@@ -50,5 +50,28 @@ namespace SistAlquilerFormWindows.Services
         {
             return _rentDAO.ObtenerRentaPorId(rentId) ?? throw new InvalidOperationException("Renta no encontrada.");
         }
+
+        internal void UpdateRentWithProduct(int rentId, DateTime newStart, DateTime newEnd, decimal newPrice, IRentableObject newProduct)
+        {
+            var rent = _rentDAO.ObtenerRentaPorId(rentId);
+            if (rent == null)
+                throw new InvalidOperationException("Renta no encontrada.");
+
+            // Cancelar la renta anterior
+            rent.CancelRent(rent.DateTimeStart, rent.EndDateTime);
+
+            // Verificar disponibilidad del nuevo producto
+            if (!newProduct.Rent(newStart, newEnd))
+            {
+                throw new InvalidOperationException("El nuevo producto no está disponible en esas fechas.");
+            }
+
+            // Crear una nueva renta con el nuevo producto
+            var newRent = _factory.CreateRent(rent.Name, newStart, newEnd, newPrice, newProduct);
+            newRent.Rent();
+
+            // Actualizar la renta en el DAO
+            _rentDAO.ActualizarRenta(rentId, newRent);
+        }
     }
 }

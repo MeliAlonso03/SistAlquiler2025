@@ -11,5 +11,6 @@ namespace SistAlquilerFormWindows.Interfaces
         bool IsAvailable(DateTime start, DateTime end);
         bool Rent(DateTime start, DateTime end);
         void CancelRent(DateTime start, DateTime end);
+        void UpdateRental(DateTime newStart, DateTime newEnd, decimal newPrice, IRentableObject newProduct);
     }
 }

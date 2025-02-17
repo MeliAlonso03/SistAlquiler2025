@@ -11,6 +11,7 @@ namespace SistAlquilerFormWindows.DAO
     public class RentDAO
     {
         public List<RentableProduct> rents = new List<RentableProduct>();
+        private readonly Dictionary<int, RentableProduct> _rentas = new Dictionary<int, RentableProduct>();
 
         public void GuardarRenta(RentableProduct renta)
         {
@@ -38,6 +39,21 @@ namespace SistAlquilerFormWindows.DAO
             {
                 rents.Remove(renta);
             }
+        }
+        public RentableProduct ObtenerRenta(int rentId)
+        {
+            return _rentas.ContainsKey(rentId) ? _rentas[rentId] : null;
+        }
+
+        public void ActualizarRenta(int rentId, RentableProduct nuevaRenta)
+        {
+            if (!_rentas.ContainsKey(rentId))
+            {
+                throw new InvalidOperationException("No se puede actualizar. La renta no existe.");
+            }
+
+            _rentas[rentId] = nuevaRenta;
+            Console.WriteLine($"Renta {rentId} actualizada con nuevo producto y fechas.");
         }
     }
 }
