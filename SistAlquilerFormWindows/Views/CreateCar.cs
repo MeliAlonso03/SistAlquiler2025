@@ -26,6 +26,7 @@ namespace SistAlquilerFormWindows.Views
             _form1 = form1;
             _inicio = inicio;
             _carController = CarController.Instance;
+            UpdateProductList();
         }
 
         private void btnAddCar_Click(object sender, EventArgs e)

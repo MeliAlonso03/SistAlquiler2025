@@ -1,4 +1,5 @@
-﻿using SistAlquilerFormWindows.Models.Interfaces;
+﻿using SistAlquilerFormWindows.Interfaces;
+using SistAlquilerFormWindows.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Xml.Linq;
 
 namespace SistAlquilerFormWindows.Models
 {
-    public class Car : ProductAvailability
+    public class Car : ProductAvailability, IRentableObject
     {
         private static int _nextId = 1;
         public int Id { get; }

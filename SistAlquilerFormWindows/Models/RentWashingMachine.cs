@@ -30,11 +30,6 @@ namespace SistAlquilerFormWindows.Models
 
         }
 
-        public override string GetDetails()
-        {
-            return "Producto: {Name}, Marca: {Washing.Brand}, Precio Total: {CalcularPrecioAlquiler()}";
-        }
-
         public override decimal CalcularPrecioAlquiler()
         {
             _PriceStrategy = _PriceStrategySelector.estrategiaPrecio(DateTimeStart, EndDateTime, PrecioxHora);
@@ -46,6 +41,10 @@ namespace SistAlquilerFormWindows.Models
         public override string ToString()
         {
             return $"Lavarropa{Washing}";
+        }
+        public override void CancelRent(DateTime dateTimeStart, DateTime endDateTime)
+        {
+            Washing.CancelRent(dateTimeStart, endDateTime);
         }
     }
 

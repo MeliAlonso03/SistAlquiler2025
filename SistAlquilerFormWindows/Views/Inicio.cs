@@ -1,4 +1,5 @@
-﻿using SistAlquilerFormWindows.Views;
+﻿using SistAlquilerFormWindows.Factory;
+using SistAlquilerFormWindows.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +15,7 @@ namespace SistAlquilerFormWindows
     public partial class Inicio : Form
     {
         private Form1 _form1;
+        public GenericProductFactory _factory = new GenericProductFactory();
 
         public Inicio(Form1 form1)
         {
@@ -38,7 +40,7 @@ namespace SistAlquilerFormWindows
 
         private void btnRent_Click(object sender, EventArgs e)
         {
-            Form1 form = Form1.GetInstance(); 
+            Form1 form = Form1.GetInstance(_factory); 
             form.Show();
             form.BringToFront();
         }

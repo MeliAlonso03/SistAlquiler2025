@@ -1,6 +1,7 @@
 ﻿using SistAlquilerFormWindows.Controllers;
 using SistAlquilerFormWindows.DAO;
 using SistAlquilerFormWindows.Factory;
+using SistAlquilerFormWindows.Interfaces;
 using SistAlquilerFormWindows.Models;
 using SistAlquilerFormWindows.Models.Interfaces;
 using SistAlquilerFormWindows.Models.PriceStrategy;
@@ -10,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -22,30 +24,24 @@ namespace SistAlquilerFormWindows
 {
     public partial class Form1 : Form
     {
-        private static Form1 instance;
+        private static Form1 _instance;
+        private static readonly object _lock = new object();
 
-        private RentController rentController = RentController.Instance;
+        private readonly RentController _rentController;
         private WashingMachineController _washingMachineController = WashingMachineController.Instance;
         private CarController _carController = CarController.Instance;
-        private ManagmentFactory _managment = new ManagmentFactory();
 
 
-        private Form1()
+        private Form1(GenericProductFactory factory)
         {
             InitializeComponent();
+            _rentController = new RentController(factory);
             InitializeComboBox();
             UpdateCarComboBox();
             UpdateWashingComboBox();
             UpdateProductList();
         }
-        public static Form1 GetInstance()
-        {
-            if (instance == null || instance.IsDisposed)
-            {
-                instance = new Form1();
-            }
-            return instance;
-        }
+
         private void InitializeComboBox()
         {
             cmbProductType.Items.AddRange(new string[] { "Car", "Washing Machine" });
@@ -55,45 +51,41 @@ namespace SistAlquilerFormWindows
 
         private void btnAddProduct_Click(object sender, EventArgs e)
         {
-            if (!TryGetValidatedInput(out string productType, out string name, out DateTime startDate, out DateTime finishDate, out decimal pricePerHour))
+            if (!ValidateInputs(out string name, out DateTime start, out DateTime end, out decimal price))
                 return;
 
+            IRentableObject rentableObject = GetSelectedRentableObject();
+            if (rentableObject == null)
+            {
+                MessageBox.Show("Seleccione un producto válido", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             try
             {
-                var product = CreateProduct(productType, name, startDate, finishDate, pricePerHour);
-                UpdateUIAfterProductAdded(product);
+                UpdateUIAfterProductAdded(name, start, end, price, rentableObject);
+                UpdateProductList();
             }
-            catch (ArgumentException ex)
+            catch (InvalidOperationException ex)
             {
-                ShowErrorMessage(ex.Message);
+                MessageBox.Show(ex.Message, "Error de Alquiler", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error inesperado: {ex.Message}");
+                MessageBox.Show("Ocurrió un error inesperado. Consulte la consola para más detalles.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            
         }
 
-        private bool TryGetValidatedInput(out string productType, out string name, out DateTime startDate, out DateTime finishDate, out decimal pricePerHour)
+        private bool ValidateInputs(out string name, out DateTime start, out DateTime end, out decimal price)
         {
-            productType = cmbProductType.Text;
             name = txtName.Text;
-            startDate = dateTimeStart.Value;
-            finishDate = dateTimeFinish.Value;
+            start = dateTimeStart.Value;
+            end = dateTimeFinish.Value;
+            price = 0;
 
-            if (!ValidateInput(out pricePerHour))
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        private void ShowErrorMessage(string message)
-        {
-            MessageBox.Show(message);
-        }
-
-        private bool ValidateInput(out decimal pricePerHour)
-        {
-            pricePerHour = 0;
-
-            if (!ValidatePrice(out pricePerHour) ||
+            if (!ValidatePrice(out price) ||
                 !ValidateProductName() ||
                 !ValidateDates())
             {
@@ -101,6 +93,26 @@ namespace SistAlquilerFormWindows
             }
 
             return true;
+        }
+
+        private IRentableObject GetSelectedRentableObject()
+        {
+            switch (cmbProductType.SelectedItem)
+            {
+                case "Car":
+                    var carSelected = GetSelectedCar();
+                    return carSelected as IRentableObject;
+                case "Washing Machine":
+                    var WashingMachineSelected = GetSelectedWashingMachine();
+                    return WashingMachineSelected as IRentableObject;
+                default:
+                return null;
+            }
+        }
+
+        private void ShowErrorMessage(string message)
+        {
+            MessageBox.Show(message);
         }
 
         private bool ValidatePrice(out decimal pricePerHour)
@@ -125,7 +137,12 @@ namespace SistAlquilerFormWindows
 
         private bool ValidateDates()
         {
-            if (dateTimeStart.Value >= dateTimeFinish.Value)
+            if (dateTimeStart.Value  < DateTime.Now)
+            {
+                ShowErrorMessage("La fecha ingresada no es valida.");
+                return false;
+            }
+            if (dateTimeStart.Value >= dateTimeFinish.Value )
             {
                 ShowErrorMessage("The start date must be earlier than the finish date.");
                 return false;
@@ -133,58 +150,13 @@ namespace SistAlquilerFormWindows
             return true;
         }
 
-        private void UpdateUIAfterProductAdded(RentableProduct product)
+        private void UpdateUIAfterProductAdded(string name, DateTime start, DateTime end, decimal price, IRentableObject rentableObject)
         {
-            if (product != null)
-            {
-                rentController.AddRent(product);
-                UpdateProductList();
-                ClearInputs();
-            }
+            _rentController.AddRent(name, start, end, price, rentableObject);
+            UpdateProductList();
+            ClearInputs();
         }
-        private RentableProduct CreateProduct(string productType, string name, DateTime startDate, DateTime finishDate, decimal pricePerHoura)
-        {
-            var product = GenerateProduct(productType, name, startDate, finishDate, pricePerHoura);
-
-            if (product == null)
-            {
-                ShowErrorMessage("Invalid product type");
-            }
-
-            return product;
-        }
-
-        private RentableProduct GenerateProduct(string productType, string name, DateTime startDate, DateTime finishDate, decimal pricePerHour)
-        {
-            switch (productType)
-            {
-                case "Car":
-                    var selectedCar = GetSelectedCar();
-            if (selectedCar == null) return null;
-                    return CreateCarProduct(name, startDate, finishDate, pricePerHour);
-                case "Washing Machine":
-                    return CreateWashingMachineProduct(name, startDate, finishDate, pricePerHour);
-                default:
-                    return null;
-            }
-        }
-
-
-        private RentableProduct CreateCarProduct(string name, DateTime startDate, DateTime finishDate, decimal pricePerHour)
-        {
-            var selectedCar = GetSelectedCar();
-            if (selectedCar == null) return null;
-
-            return RentCar(name, startDate, finishDate, pricePerHour, selectedCar);
-        }
-
-        private RentableProduct CreateWashingMachineProduct(string name, DateTime startDate, DateTime finishDate, decimal pricePerHour)
-        {
-            var selectedMachine = GetSelectedWashingMachine();
-            if (selectedMachine == null) return null;
-
-            return RentWashingMachine(name, startDate, finishDate, pricePerHour, selectedMachine);
-        }
+        
 
         // Obtiene el auto seleccionado
         private Car GetSelectedCar()
@@ -198,7 +170,7 @@ namespace SistAlquilerFormWindows
             return null;
         }
 
-        // Obtiene la lavadora seleccionada
+        //// Obtiene la lavadora seleccionada
         private WashingMachine GetSelectedWashingMachine()
         {
             if (cmbWashing.SelectedItem is WashingMachine selectedMachine)
@@ -209,63 +181,19 @@ namespace SistAlquilerFormWindows
             ShowErrorMessage("Please select a valid washing machine from the list.");
             return null;
         }
-        private RentableProduct RentCar(string name, DateTime startDate, DateTime finishDate, decimal pricePerHour, Car car)
-        {
-            var rentedCar = _managment.AlquilarAuto("Car", name, startDate, finishDate, pricePerHour, car);
-
-            if (rentedCar == null)
-            {
-                ShowErrorMessage("El auto no está disponible en esas fechas.");
-            }
-
-            return rentedCar;
-        }
-
-        private RentableProduct RentWashingMachine(string name, DateTime startDate, DateTime finishDate, decimal pricePerHour, WashingMachine machine)
-        {
-            var rentedMachine = _managment.AlquilarWashingMachine("Washing Machine", name, startDate, finishDate, pricePerHour, machine);
-
-            if (rentedMachine == null)
-            {
-                ShowErrorMessage("El Lavarropa no está disponible en esas fechas.");
-            }
-
-            return rentedMachine;
-        }
 
         private void UpdateProductList()
         {
-            var rents = GetRentableProducts();
-            var listViewItems = ConvertToListViewItems(rents);
-            RefreshListView(listViewItems);
-        }
-
-        private List<RentableProduct> GetRentableProducts()
-        {
-            return rentController.GetAllCars();
-        }
-
-        private List<ListViewItem> ConvertToListViewItems(List<RentableProduct> rents)
-        {
-            var items = new List<ListViewItem>();
-
-            foreach (var rent in rents)
+            lVRent.Items.Clear();
+            foreach (var rent in _rentController.GetAllRents())
             {
                 var item = new ListViewItem(rent.Name);
                 item.SubItems.Add(rent.ToString());
                 item.SubItems.Add(rent.CalcularPrecioAlquiler().ToString());
                 item.SubItems.Add(rent.Id.ToString());
                 item.Tag = rent.Id;
-                items.Add(item);
+                lVRent.Items.Add(item);
             }
-
-            return items;
-        }
-
-        private void RefreshListView(List<ListViewItem> items)
-        {
-            lVRent.Items.Clear();
-            lVRent.Items.AddRange(items.ToArray());
         }
         private void ClearInputs()
         {
@@ -322,30 +250,30 @@ namespace SistAlquilerFormWindows
 
         private void btnEditRent_Click(object sender, EventArgs e)
         {
-            int rentId = SelectedItem();
-            if (rentId == 0) return;
 
-            var renta = rentController.BuscarRenta(rentId);
-            if (renta == null)
+            try
             {
-                MessageBox.Show("La renta seleccionada no existe.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                int rentId = SelectedItem();
+                if (!ValidateInputs(out string name, out DateTime start, out DateTime end, out decimal price))
+                    return;
+                _rentController.ModifyRent(rentId, start, end, price, name);
+                UpdateProductList();
             }
-
-            string name = txtName.Text;
-            DateTime startDate = dateTimeStart.Value;
-            DateTime finishDate = dateTimeFinish.Value;
-
-            if (!ValidateInput(out decimal pricePerHour)) return;
-
-            rentController.ModificarRenta(rentId, startDate, finishDate, pricePerHour, name);
-            UpdateProductList();
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show(ex.Message, "Error de Edición", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error inesperado: {ex.Message}");
+                MessageBox.Show("Ocurrió un error inesperado. Consulte la consola para más detalles.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         private int SelectedItem()
         {
             if (lVRent.SelectedItems.Count == 0)
             {
-                MessageBox.Show("Seleccione una Renta para editar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Seleccione una Renta.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return 0;
             }
 
@@ -357,7 +285,7 @@ namespace SistAlquilerFormWindows
         private void btnMostrarDatos_Click(object sender, EventArgs e)
         {
             int rentId = SelectedItem();
-            RentableProduct renta = rentController.BuscarRenta(rentId);
+            RentableProduct renta = _rentController.GetRentById(rentId);
             ShowItemDetails(renta);
         }
 
@@ -373,8 +301,23 @@ namespace SistAlquilerFormWindows
         {
             int rentId = SelectedItem();
             if (rentId == 0) return;
-            rentController.BorrarRenta(rentId);
+            _rentController.DeleteRent(rentId);
             UpdateProductList();
+        }
+
+        internal static Form1 GetInstance(GenericProductFactory factory)
+        {
+            if (_instance == null || _instance.IsDisposed)
+            {
+                lock (_lock)
+                {
+                    if (_instance == null || _instance.IsDisposed)
+                    {
+                        _instance = new Form1(factory);
+                    }
+                }
+            }
+            return _instance;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using SistAlquilerFormWindows.Models;
+﻿using SistAlquilerFormWindows.Factory;
+using SistAlquilerFormWindows.Interfaces;
+using SistAlquilerFormWindows.Models;
 using SistAlquilerFormWindows.Models.Interfaces;
 using SistAlquilerFormWindows.Services;
 using System;
@@ -11,61 +13,29 @@ namespace SistAlquilerFormWindows.Controllers
 {
     public class RentController
     {
-        // Instancia única
-        private static RentController _instance;
-
-        // Lock para seguridad en entornos multihilo
-        private static readonly object _lock = new object();
-
-        // Servicio utilizado por el controlador
-        private readonly RentService rentService;
-
-        // Constructor privado para evitar instanciación externa
-        private RentController()
+        private readonly RentService _rentService;
+        public RentController(GenericProductFactory factory)
         {
-            rentService = new RentService();
+            _rentService = new RentService(factory);
         }
 
-        // Propiedad para acceder a la instancia única
-        public static RentController Instance
+        public RentableProduct AddRent(string name, DateTime start, DateTime end, decimal price, IRentableObject rentableObject)
+            => _rentService.AddRent(name, start, end, price, rentableObject);
+
+        public List<RentableProduct> GetAllRents() => _rentService.GetAllRentals();
+        public RentableProduct GetRentById(int rentId) => _rentService.GetById(rentId);
+        public void ModifyRent(int rentId, DateTime newStart, DateTime newEnd, decimal newPrice, string newName)
         {
-            get
+            try
             {
-                if (_instance == null)
-                {
-                    lock (_lock) // Asegura que solo se inicialice una vez
-                    {
-                        if (_instance == null)
-                        {
-                            _instance = new RentController();
-                        }
-                    }
-                }
-                return _instance;
+                _rentService.UpdateRent(rentId, newStart, newEnd, newPrice, newName);
+            }
+            catch (InvalidOperationException ex)
+            {
+                Console.WriteLine($"Error al modificar renta: {ex.Message}");
+                throw;
             }
         }
-        public RentableProduct AddRent(RentableProduct renta)
-        {
-            return rentService.AddRent(renta);
-        }
-
-        public List<RentableProduct> GetAllCars()
-        {
-            return rentService.GetAllRent();
-        }
-        public void ModificarRenta(int rentId, DateTime newStart, DateTime newFinish, decimal newPrice, string newName)
-        {
-            rentService.ActualizarRenta(rentId, newStart, newFinish, newPrice, newName);
-        }
-
-        public void BorrarRenta(int rentId)
-        {
-            rentService.EliminarRenta(rentId);
-        }
-
-        internal RentableProduct BuscarRenta(int rentID)
-        {
-            return rentService.BuscarRenta(rentID);
-        }
+        public void DeleteRent(int rentId) => _rentService.DeleteRent(rentId);
     }
 }

@@ -47,15 +47,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\CarController.cs" />
-    <Compile Include="Controllers\ManagmentFactory.cs" />
     <Compile Include="Controllers\RentController.cs" />
     <Compile Include="Controllers\WashingMachineController.cs" />
     <Compile Include="DAO\CarDAO.cs" />
     <Compile Include="DAO\RentDAO.cs" />
     <Compile Include="DAO\WashingMachineDAO.cs" />
-    <Compile Include="Factory\CarFactory.cs" />
+    <Compile Include="Factory\GenericProductFactory.cs" />
     <Compile Include="Interfaces\IProductFactory.cs" />
-    <Compile Include="Factory\WashingMachineFactory.cs" />
+    <Compile Include="Interfaces\IRentableObject.cs" />
     <Compile Include="Models\ProductAvailability.cs" />
     <Compile Include="Views\Form1.cs">
       <SubType>Form</SubType>

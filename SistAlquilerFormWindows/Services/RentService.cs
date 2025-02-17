@@ -1,5 +1,7 @@
 ﻿using SistAlquilerFormWindows.Controllers;
 using SistAlquilerFormWindows.DAO;
+using SistAlquilerFormWindows.Factory;
+using SistAlquilerFormWindows.Interfaces;
 using SistAlquilerFormWindows.Models;
 using SistAlquilerFormWindows.Models.Interfaces;
 using System;
@@ -12,54 +14,41 @@ namespace SistAlquilerFormWindows.Services
 {
     public class RentService
     {
-        public RentDAO _RentDAO;
-        public ManagmentFactory _factory = new ManagmentFactory();
-        public RentService()
+        private readonly RentDAO _rentDAO;
+        private readonly GenericProductFactory _factory;
+
+        public RentService(GenericProductFactory factory)
         {
-            _RentDAO = new RentDAO();
-        }
-        public RentableProduct AddRent(RentableProduct product)
-        {
-            _RentDAO.GuardarRenta(product);
-            return product;
+            _rentDAO = new RentDAO();
+            _factory = factory;
         }
 
-
-        internal List<RentableProduct> GetAllRent()
+        public RentableProduct AddRent(string name, DateTime start, DateTime end, decimal price, IRentableObject rentableObject)
         {
-            return _RentDAO.rents.ToList();
-        }
-        public void ActualizarRenta(int rentId, DateTime newStart, DateTime newFinish, decimal newPrice, string newName)
-        {
-            var renta = _RentDAO.ObtenerRentaPorId(rentId);
-            if (renta == null) throw new InvalidOperationException("Renta no encontrada.");
-
-            renta.ActualizarDatos(newStart, newFinish, newPrice, newName);
-            _RentDAO.ActualizarRenta(renta);
+            var rent = _factory.CreateRent(name, start, end, price, rentableObject);
+            _rentDAO.GuardarRenta(rent);
+            return rent;
         }
 
-        public void EliminarRenta(int rentId)
+        public List<RentableProduct> GetAllRentals() => _rentDAO.rents.ToList();
+
+        public void UpdateRent(int rentId, DateTime newStart, DateTime newFinish, decimal newPrice, string newName)
         {
-            var renta = _RentDAO.ObtenerRentaPorId(rentId);
-            if (renta == null) throw new InvalidOperationException("Renta no encontrada.");
-
-            switch (renta)
-            {
-                case RentCar _rentCar:
-                    _rentCar.Car.CancelRent(renta.DateTimeStart, renta.EndDateTime);
-                    break;
-                case RentWashingMachine _rentWashingMachine:
-                    _rentWashingMachine.Washing.CancelRent(renta.DateTimeStart, renta.EndDateTime);
-                    break;
-            }
-
-            _RentDAO.EliminarRenta(rentId);
+            var rent = _rentDAO.ObtenerRentaPorId(rentId) ?? throw new InvalidOperationException("Renta no encontrada.");
+            rent.ActualizarDatos(newStart, newFinish, newPrice, newName);
+            _rentDAO.ActualizarRenta(rent);
         }
 
-        internal RentableProduct BuscarRenta(int rentID)
+        public void DeleteRent(int rentId)
         {
-            RentableProduct renta = _RentDAO.ObtenerRentaPorId(rentID);
-            return renta;
+            var rent = _rentDAO.ObtenerRentaPorId(rentId) ?? throw new InvalidOperationException("Renta no encontrada.");
+            rent.CancelRent(rent.DateTimeStart, rent.EndDateTime);
+            _rentDAO.EliminarRenta(rentId);
+        }
+
+        internal RentableProduct GetById(int rentId)
+        {
+            return _rentDAO.ObtenerRentaPorId(rentId) ?? throw new InvalidOperationException("Renta no encontrada.");
         }
     }
 }

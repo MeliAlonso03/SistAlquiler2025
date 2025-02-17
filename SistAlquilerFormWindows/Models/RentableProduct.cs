@@ -36,7 +36,6 @@ namespace SistAlquilerFormWindows.Models.Interfaces
 
         public abstract decimal CalcularPrecioAlquiler();
         public abstract void Rent();
-        public abstract string GetDetails();
 
         public virtual void ActualizarDatos(DateTime newStart, DateTime newFinish, decimal newPrice, string newName)
         {
@@ -47,5 +46,7 @@ namespace SistAlquilerFormWindows.Models.Interfaces
 
             CalcularPrecioAlquiler();
         }
+
+        public abstract void CancelRent(DateTime dateTimeStart, DateTime endDateTime);
     }
 }

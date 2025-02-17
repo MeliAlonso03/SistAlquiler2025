@@ -1,4 +1,5 @@
-﻿using SistAlquilerFormWindows.Models.Interfaces;
+﻿using SistAlquilerFormWindows.Interfaces;
+using SistAlquilerFormWindows.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SistAlquilerFormWindows.Models
 {
-    public class WashingMachine : ProductAvailability
+    public class WashingMachine : ProductAvailability, IRentableObject
     {
         private static int _nextId = 1;
         public int Id { get; }

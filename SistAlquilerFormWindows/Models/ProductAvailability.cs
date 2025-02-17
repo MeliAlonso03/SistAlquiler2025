@@ -10,32 +10,54 @@ namespace SistAlquilerFormWindows.Models
     {
         public bool Available { get; set; } = true;
         public List<(DateTime Start, DateTime End)> RentalPeriods { get; private set; } = new List<(DateTime, DateTime)>();
+
         public bool IsAvailable(DateTime start, DateTime end)
         {
-            if (!RentalPeriods.Any()) // Si no hay rentas, está disponible
-                return true;
-
-            return !RentalPeriods.Any(r => (start < r.End) && (end > r.Start));
+            Console.WriteLine($"Verificando disponibilidad para {start} - {end}");
+            foreach (var period in RentalPeriods)
+            {
+                Console.WriteLine($"Rango ocupado: {period.Start} - {period.End}");
+                if (start < period.End && end > period.Start)
+                {
+                    Console.WriteLine("Conflicto detectado. No disponible.");
+                    return false;
+                }
+            }
+            Console.WriteLine("Disponible.");
+            return true;
         }
 
-        // Método para marcar como alquilado
-        public virtual void Rent(DateTime start, DateTime end)
+        public virtual bool Rent(DateTime start, DateTime end)
         {
             if (!IsAvailable(start, end))
-                throw new InvalidOperationException("El auto no está disponible en las fechas seleccionadas.");
+            {
+                throw new InvalidOperationException($"El objeto no está disponible desde {start} hasta {end}.");
+            }
 
             RentalPeriods.Add((start, end));
             Available = false;
+            Console.WriteLine($"Alquiler registrado: {start} - {end}");
+            return true;
         }
+
         public virtual void CancelRent(DateTime start, DateTime end)
         {
             RentalPeriods.RemoveAll(r => r.Start == start && r.End == end);
-
-            // Si no hay más períodos de renta, marcar el objeto como disponible
             if (!RentalPeriods.Any())
             {
                 Available = true;
             }
+            Console.WriteLine($"Alquiler cancelado: {start} - {end}");
+        }
+        public virtual void UpdateRental(DateTime newStart, DateTime newEnd, decimal newPrice)
+        {
+            if (!IsAvailable(newStart, newEnd))
+            {
+                throw new InvalidOperationException($"No se puede actualizar la renta a estas fechas: {newStart} - {newEnd}.");
+            }
+            RentalPeriods.Clear();
+            Rent(newStart, newEnd);
+            Console.WriteLine($"Renta actualizada a {newStart} - {newEnd}, Nuevo Precio: {newPrice}");
         }
     }
 }

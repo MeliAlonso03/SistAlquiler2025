@@ -29,11 +29,6 @@ namespace SistAlquilerFormWindows.Models
             Car.Rent(DateTimeStart, EndDateTime);
         }
 
-        public override string GetDetails()
-        {
-            return $"[ID {Id}] Usuario: {Name}, Auto: {Car.LicensePlate}, Precio Total: ${CalcularPrecioAlquiler()}";
-        }
-
         public override decimal CalcularPrecioAlquiler()
         {
             _PriceStrategy = _PriceStrategySelector.estrategiaPrecio(DateTimeStart, EndDateTime, PrecioxHora);
@@ -45,6 +40,11 @@ namespace SistAlquilerFormWindows.Models
         public override string ToString()
         {
             return $"Auto: {Car}";
+        }
+
+        public override void CancelRent(DateTime dateTimeStart, DateTime endDateTime)
+        {
+            Car.CancelRent(dateTimeStart, endDateTime);
         }
     }
 }

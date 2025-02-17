@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SistAlquilerFormWindows.Controllers;
+using SistAlquilerFormWindows.Factory;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +18,8 @@ namespace SistAlquilerFormWindows
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Inicio(Form1.GetInstance()));
+            GenericProductFactory factory = new GenericProductFactory();
+            Application.Run(new Inicio(Form1.GetInstance(factory)));
 
         }
     }
